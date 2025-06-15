@@ -19,14 +19,18 @@ class CustomerSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['private_token', 'created_at', 'updated_at']
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True},
+            'phone': {'required': False, 'allow_blank': True, 'allow_null': True},
+            'driving_license': {'required': False, 'allow_blank': True, 'allow_null': True},
+            'profile_picture': {'required': False, 'allow_null': True},
+            'date_of_birth': {'required': False, 'allow_null': True},
         }
-
+    
     def create(self, validated_data):
         password = validated_data.pop('password', None)
         customer = Customer(**validated_data)
         if password:
-            customer.password = password  # In production, hash this password
+            customer.password = password  # Password is already hashed in the view
         customer.save()
         return customer
 

@@ -89,7 +89,7 @@ def generate_and_send_otp(user_id, user_type):
         user.save()
         
         # Send OTP email
-        send_otp_email.delay(user.email, otp, user_type)
+        # send_otp_email.delay(user.email, otp, user_type) # commented this line during testing will start it while in production
         
         logger.info(f"OTP generated and sent for {user_type} ID: {user_id}")
         return True
@@ -97,6 +97,19 @@ def generate_and_send_otp(user_id, user_type):
         logger.error(f"Failed to generate and send OTP: {str(e)}")
         return False
 
+@shared_task
+def send_otp_sms(phone_number, otp):
+    """Send OTP via SMS to user for verification"""
+    try:
+        # Here you would integrate with an SMS gateway API
+        # For example, using Twilio or any other service
+        # This is a placeholder for actual SMS sending logic
+        logger.info(f"OTP {otp} sent to {phone_number}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send OTP SMS to {phone_number}: {str(e)}")
+        return False
+    
 @shared_task
 def update_vehicle_ratings():
     """Update vehicle ratings based on reviews"""
