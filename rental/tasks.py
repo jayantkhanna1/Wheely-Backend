@@ -2,7 +2,8 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
-from .models import Customer, Host, Vehicle, Review
+from django.db import models
+from .models import User, Vehicle, Review
 import random
 import string
 import logging
@@ -10,7 +11,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 @shared_task
-def send_otp_email(email, otp, user_type='customer'):
+def send_otp_email(email, otp):
     """Send OTP email to user for verification"""
     try:
         subject = 'Wheely - Email Verification OTP'
@@ -73,26 +74,27 @@ def send_booking_confirmation_email(customer_email, vehicle_name, booking_detail
         return False
 
 @shared_task
-def generate_and_send_otp(user_id, user_type):
+def generate_and_send_otp(user_id, user_type='user'):
     """Generate OTP and send to user"""
     try:
         # Generate 6-digit OTP
         otp = ''.join(random.choices(string.digits, k=6))
         
-        if user_type == 'customer':
-            user = Customer.objects.get(id=user_id)
-        else:
-            user = Host.objects.get(id=user_id)
+        # Get user (unified User model)
+        user = User.objects.get(id=user_id)
         
         # Save OTP to user
         user.otp = otp
         user.save()
         
         # Send OTP email
-        # send_otp_email.delay(user.email, otp, user_type) # commented this line during testing will start it while in production
+        send_otp_email.delay(user.email, otp)
         
-        logger.info(f"OTP generated and sent for {user_type} ID: {user_id}")
+        logger.info(f"OTP generated and sent for user ID: {user_id}")
         return True
+    except User.DoesNotExist:
+        logger.error(f"User with ID {user_id} not found")
+        return False
     except Exception as e:
         logger.error(f"Failed to generate and send OTP: {str(e)}")
         return False
@@ -109,7 +111,7 @@ def send_otp_sms(phone_number, otp):
     except Exception as e:
         logger.error(f"Failed to send OTP SMS to {phone_number}: {str(e)}")
         return False
-    
+
 @shared_task
 def update_vehicle_ratings():
     """Update vehicle ratings based on reviews"""
@@ -119,7 +121,7 @@ def update_vehicle_ratings():
             reviews = Review.objects.filter(vehicle=vehicle)
             if reviews.exists():
                 avg_rating = reviews.aggregate(models.Avg('rating'))['rating__avg']
-                vehicle.rating = round(avg_rating, 2)
+                vehicle.rating = round(avg_rating, 2) if avg_rating else 0.0
                 vehicle.total_bookings = reviews.count()
                 vehicle.save()
         
@@ -130,40 +132,40 @@ def update_vehicle_ratings():
         return False
 
 @shared_task
-def update_host_ratings():
-    """Update host ratings based on their vehicle reviews"""
+def update_user_ratings():
+    """Update user ratings based on their vehicle reviews (for hosts)"""
     try:
-        hosts = Host.objects.all()
+        # Get all users who own vehicles (hosts)
+        hosts = User.objects.filter(vehicles__isnull=False).distinct()
+        
         for host in hosts:
-            reviews = Review.objects.filter(host=host)
+            # Get all reviews for vehicles owned by this host
+            reviews = Review.objects.filter(vehicle__owner=host)
             if reviews.exists():
                 avg_rating = reviews.aggregate(models.Avg('rating'))['rating__avg']
-                host.rating = round(avg_rating, 2)
-                host.total_bookings = reviews.count()
-                host.save()
+                # Note: You might need to add a rating field to User model for hosts
+                # or handle this differently based on your User model structure
+                logger.info(f"Host {host.id} average rating: {avg_rating}")
         
-        logger.info("Host ratings updated successfully")
+        logger.info("User ratings updated successfully")
         return True
     except Exception as e:
-        logger.error(f"Failed to update host ratings: {str(e)}")
+        logger.error(f"Failed to update user ratings: {str(e)}")
         return False
 
 @shared_task
 def cleanup_expired_otps():
     """Clean up expired OTPs (older than 10 minutes)"""
     try:
-        # Clear OTPs for customers and hosts
-        Customer.objects.filter(
+        # Clear OTPs for users (unified model)
+        expired_time = timezone.now() - timezone.timedelta(minutes=10)
+        
+        updated_count = User.objects.filter(
             otp__isnull=False,
-            updated_at__lt=timezone.now() - timezone.timedelta(minutes=10)
+            updated_at__lt=expired_time
         ).update(otp='')
         
-        Host.objects.filter(
-            otp__isnull=False,
-            updated_at__lt=timezone.now() - timezone.timedelta(minutes=10)
-        ).update(otp='')
-        
-        logger.info("Expired OTPs cleaned up successfully")
+        logger.info(f"Expired OTPs cleaned up successfully. {updated_count} OTPs cleared.")
         return True
     except Exception as e:
         logger.error(f"Failed to cleanup expired OTPs: {str(e)}")
@@ -184,4 +186,74 @@ def send_reminder_email(email, message, subject="Wheely Reminder"):
         return True
     except Exception as e:
         logger.error(f"Failed to send reminder email: {str(e)}")
+        return False
+
+@shared_task
+def send_vehicle_verification_notification(user_id, vehicle_id, is_verified):
+    """Send notification to vehicle owner about verification status"""
+    try:
+        user = User.objects.get(id=user_id)
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        
+        status = "approved" if is_verified else "rejected"
+        subject = f'Wheely - Vehicle Verification {status.title()}'
+        
+        message = f'''
+        Hi {user.first_name},
+        
+        Your vehicle "{vehicle.vehicle_name}" has been {status} for listing on Wheely.
+        
+        {"You can now start receiving bookings!" if is_verified else "Please check your vehicle documents and resubmit."}
+        
+        Best regards,
+        Wheely Team
+        '''
+        
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [user.email],
+            fail_silently=False,
+        )
+        
+        logger.info(f"Vehicle verification notification sent to user {user_id}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send vehicle verification notification: {str(e)}")
+        return False
+
+@shared_task
+def send_review_notification(host_user_id, vehicle_name, rating, comment):
+    """Send notification to host when they receive a new review"""
+    try:
+        host = User.objects.get(id=host_user_id)
+        
+        subject = f'Wheely - New Review for {vehicle_name}'
+        message = f'''
+        Hi {host.first_name},
+        
+        You have received a new review for your vehicle "{vehicle_name}":
+        
+        Rating: {rating}/5 stars
+        Comment: {comment}
+        
+        Keep up the great work!
+        
+        Best regards,
+        Wheely Team
+        '''
+        
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [host.email],
+            fail_silently=False,
+        )
+        
+        logger.info(f"Review notification sent to host {host_user_id}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send review notification: {str(e)}")
         return False

@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from .models import Location, Customer, Host, Vehicle, VehiclePhoto, VehicleAvailability, Review
+from .models import Location, User, Vehicle, VehiclePhoto, VehicleAvailability, Review
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = '__all__'
 
-class CustomerSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     location = LocationSerializer(read_only=True)
     location_id = serializers.IntegerField(write_only=True, required=False, allow_null=True)
     
     class Meta:
-        model = Customer
+        model = User
         fields = [
             'id', 'first_name', 'last_name', 'email', 'phone', 'location', 'location_id',
             'driving_license', 'driving_license_verified', 'profile_picture', 'date_of_birth',
@@ -21,43 +21,19 @@ class CustomerSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True},
             'phone': {'required': False, 'allow_blank': True, 'allow_null': True},
-            'driving_license': {'required': False, 'allow_blank': True, 'allow_null': True},
+            'driving_license': {'required': False, 'allow_null': True},
             'profile_picture': {'required': False, 'allow_null': True},
             'date_of_birth': {'required': False, 'allow_null': True},
         }
     
     def create(self, validated_data):
         password = validated_data.pop('password', None)
-        customer = Customer(**validated_data)
+        user = User(**validated_data)
         if password:
-            customer.password = password  # Password is already hashed in the view
-        customer.save()
-        return customer
-
-class HostSerializer(serializers.ModelSerializer):
-    location = LocationSerializer(read_only=True)
-    location_id = serializers.IntegerField(write_only=True, required=False, allow_null=True)
+            user.password = password  # Password is already hashed in the view
+        user.save()
+        return user
     
-    class Meta:
-        model = Host
-        fields = [
-            'id', 'first_name', 'last_name', 'email', 'phone', 'location', 'location_id',
-            'profile_picture', 'business_license', 'business_license_verified', 'rating',
-            'total_bookings', 'email_verified', 'phone_verified', 'private_token', 
-            'is_active', 'created_at', 'updated_at'
-        ]
-        read_only_fields = ['private_token', 'rating', 'total_bookings', 'created_at', 'updated_at']
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
-
-    def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        host = Host(**validated_data)
-        if password:
-            host.password = password  # In production, hash this password
-        host.save()
-        return host
 
 class VehiclePhotoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -72,7 +48,7 @@ class VehicleAvailabilitySerializer(serializers.ModelSerializer):
 class VehicleSerializer(serializers.ModelSerializer):
     location = LocationSerializer(read_only=True)
     location_id = serializers.IntegerField(write_only=True)
-    owner = HostSerializer(read_only=True)
+    owner = UserSerializer(read_only=True)
     owner_id = serializers.IntegerField(write_only=True)
     photos = VehiclePhotoSerializer(many=True, read_only=True)
     availability_slots = VehicleAvailabilitySerializer(many=True, read_only=True)
@@ -92,29 +68,23 @@ class VehicleSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     vehicle = VehicleSerializer(read_only=True)
     vehicle_id = serializers.IntegerField(write_only=True)
-    host = HostSerializer(read_only=True)
-    host_id = serializers.IntegerField(write_only=True)
-    customer = CustomerSerializer(read_only=True)
-    customer_id = serializers.IntegerField(write_only=True)
-    
+    user = UserSerializer(read_only=True)
+    user_id = serializers.IntegerField(write_only=True)
+
     class Meta:
         model = Review
         fields = [
-            'id', 'vehicle', 'vehicle_id', 'host', 'host_id', 'customer', 'customer_id',
+            'id', 'vehicle', 'vehicle_id', 'user', 'user_id',
             'rating', 'comment', 'is_verified_booking', 'created_at', 'updated_at'
         ]
         read_only_fields = ['created_at', 'updated_at']
 
 # Simplified serializers for listing views
-class CustomerListSerializer(serializers.ModelSerializer):
+class UserListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Customer
+        model = User
         fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'email_verified', 'phone_verified']
 
-class HostListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Host
-        fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'rating', 'total_bookings']
 
 class VehicleListSerializer(serializers.ModelSerializer):
     location = LocationSerializer(read_only=True)

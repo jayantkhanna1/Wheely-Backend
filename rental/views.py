@@ -14,14 +14,13 @@ import string
 from datetime import datetime, timedelta
 
 from .models import (
-    Location, Customer, Host, Vehicle, VehiclePhoto, 
+    Location, User, Vehicle, VehiclePhoto, 
     VehicleAvailability, Review
 )
 from .serializers import (
-    LocationSerializer, CustomerSerializer, HostSerializer,
+    LocationSerializer, UserSerializer, UserListSerializer,
     VehicleSerializer, VehiclePhotoSerializer, VehicleAvailabilitySerializer,
-    ReviewSerializer, CustomerListSerializer, HostListSerializer,
-    VehicleListSerializer
+    ReviewSerializer, VehicleListSerializer
 )
 from .tasks import generate_and_send_otp, send_otp_sms
 
@@ -37,10 +36,10 @@ class LocationViewSet(viewsets.ModelViewSet):
     ordering_fields = ['city', 'state', 'created_at']
     ordering = ['-created_at']
 
-class CustomerViewSet(viewsets.ModelViewSet):
-    """ViewSet for Customer model"""
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    """ViewSet for User model (both customers and hosts)"""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['email_verified', 'phone_verified', 'driving_license_verified', 'is_active']
     search_fields = ['first_name', 'last_name', 'email', 'phone']
@@ -49,53 +48,30 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return CustomerListSerializer
-        return CustomerSerializer
+            return UserListSerializer
+        return UserSerializer
 
     @action(detail=True, methods=['post'])
     def verify_driving_license(self, request, pk=None):
-        """Action to verify customer's driving license"""
-        customer = self.get_object()
-        customer.driving_license_verified = True
-        customer.save()
+        """Action to verify user's driving license"""
+        user = self.get_object()
+        user.driving_license_verified = True
+        user.save()
         return Response({'message': 'Driving license verified successfully'})
 
     @action(detail=True, methods=['get'])
     def bookings(self, request, pk=None):
-        """Get customer's booking history"""
-        customer = self.get_object()
-        reviews = Review.objects.filter(customer=customer).order_by('-created_at')
+        """Get user's booking history (reviews they've given)"""
+        user = self.get_object()
+        reviews = Review.objects.filter(user=user).order_by('-created_at')
         serializer = ReviewSerializer(reviews, many=True, context={'request': request})
         return Response(serializer.data)
-
-class HostViewSet(viewsets.ModelViewSet):
-    """ViewSet for Host model"""
-    queryset = Host.objects.all()
-    serializer_class = HostSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['email_verified', 'phone_verified', 'business_license_verified', 'is_active']
-    search_fields = ['first_name', 'last_name', 'email', 'phone']
-    ordering_fields = ['first_name', 'last_name', 'rating', 'total_bookings', 'created_at']
-    ordering = ['-created_at']
-
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return HostListSerializer
-        return HostSerializer
-
-    @action(detail=True, methods=['post'])
-    def verify_business_license(self, request, pk=None):
-        """Action to verify host's business license"""
-        host = self.get_object()
-        host.business_license_verified = True
-        host.save()
-        return Response({'message': 'Business license verified successfully'})
-
+    
     @action(detail=True, methods=['get'])
     def vehicles(self, request, pk=None):
-        """Get all vehicles owned by this host"""
-        host = self.get_object()
-        vehicles = Vehicle.objects.filter(owner=host)
+        """Get user's vehicles (for hosts)"""
+        user = self.get_object()
+        vehicles = Vehicle.objects.filter(owner=user).order_by('-created_at')
         serializer = VehicleListSerializer(vehicles, many=True, context={'request': request})
         return Response(serializer.data)
 
@@ -183,36 +159,28 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ['vehicle', 'host', 'customer', 'rating', 'is_verified_booking']
+    filterset_fields = ['vehicle', 'user', 'rating', 'is_verified_booking']
     ordering_fields = ['rating', 'created_at']
     ordering = ['-created_at']
 
     def create(self, request, *args, **kwargs):
-        """Override create to update vehicle and host ratings"""
+        """Override create to update vehicle ratings"""
         response = super().create(request, *args, **kwargs)
         if response.status_code == status.HTTP_201_CREATED:
             review_data = response.data
             # Update vehicle rating
-            vehicle = Vehicle.objects.get(id=review_data['vehicle'])
+            vehicle = Vehicle.objects.get(id=review_data['vehicle_id'])
             avg_rating = Review.objects.filter(vehicle=vehicle).aggregate(Avg('rating'))['rating__avg']
             vehicle.rating = round(avg_rating, 2) if avg_rating else 0.0
             vehicle.total_bookings = Review.objects.filter(vehicle=vehicle).count()
             vehicle.save()
-            
-            # Update host rating
-            host = Host.objects.get(id=review_data['host'])
-            avg_rating = Review.objects.filter(host=host).aggregate(Avg('rating'))['rating__avg']
-            host.rating = round(avg_rating, 2) if avg_rating else 0.0
-            host.total_bookings = Review.objects.filter(host=host).count()
-            host.save()
         
         return response
 
 
-
-# Customer Views
-class CustomerRegisterView(APIView):
-    """Customer registration view"""
+# User Authentication Views
+class UserRegisterView(APIView):
+    """User registration view"""
     
     def post(self, request):
         data = request.data.copy()
@@ -223,98 +191,28 @@ class CustomerRegisterView(APIView):
         if 'phone' not in data or not data['phone']:
             data['phone'] = None  
         
-        serializer = CustomerSerializer(data=data)
+        serializer = UserSerializer(data=data)
         if serializer.is_valid():
-            customer = serializer.save()
+            user = serializer.save()
+            user.password = data['password']  # Ensure password is hashed
+            user.save()
             # Generate and send OTP
             try:
-                generate_and_send_otp.delay(customer.id, 'customer')
+                generate_and_send_otp.delay(user.id, 'user')
             except:
                 # If celery is not configured, generate OTP without task
                 otp = ''.join(random.choices(string.digits, k=6))
-                customer.otp = otp
-                customer.save()
+                user.otp = otp
+                user.save()
             
             return Response({
-                'message': 'Customer registered successfully. OTP sent to email.',
-                'customer_id': customer.id
+                'message': 'User registered successfully. OTP sent to email.',
+                'user_id': user.id
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CustomerLoginView(APIView):
-    """Customer login view"""
-    
-    def post(self, request):
-        email = request.data.get('email')
-        password = request.data.get('password')
-        
-        if not email or not password:
-            return Response({
-                'error': 'Email and password are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            customer = Customer.objects.get(email=email)
-            if check_password(password, customer.password):
-                if not customer.is_active:
-                    return Response({
-                        'error': 'Account is deactivated'
-                    }, status=status.HTTP_401_UNAUTHORIZED)
-                
-                serializer = CustomerSerializer(customer)
-                return Response({
-                    'message': 'Login successful',
-                    'customer': serializer.data,
-                    'token': str(customer.private_token)
-                }, status=status.HTTP_200_OK)
-            else:
-                return Response({
-                    'error': 'Invalid credentials'
-                }, status=status.HTTP_401_UNAUTHORIZED)
-        except Customer.DoesNotExist:
-            return Response({
-                'error': 'Customer not found'
-            }, status=status.HTTP_404_NOT_FOUND)
-
-class CustomerStatsView(APIView):
-    """Get customer statistics"""
-    
-    def get(self, request, customer_id):
-        try:
-            customer = Customer.objects.get(id=customer_id)
-        except Customer.DoesNotExist:
-            return Response({
-                'error': 'Customer not found'
-            }, status=status.HTTP_404_NOT_FOUND)
-        
-        # Calculate statistics
-        total_bookings = Review.objects.filter(customer=customer).count()
-        vehicle_types_used = Review.objects.filter(customer=customer).values(
-            'vehicle__vehicle_type'
-        ).annotate(count=Count('vehicle__vehicle_type')).order_by('-count')
-        
-        # Average rating given by customer
-        avg_rating_given = Review.objects.filter(customer=customer).aggregate(
-            avg_rating=Avg('rating')
-        )['avg_rating']
-        
-        # Recent bookings
-        recent_bookings = Review.objects.filter(customer=customer).order_by('-created_at')[:5]
-        recent_bookings_data = ReviewSerializer(recent_bookings, many=True, context={'request': request}).data
-        
-        stats = {
-            'customer_info': CustomerSerializer(customer).data,
-            'total_bookings': total_bookings,
-            'average_rating_given': round(avg_rating_given, 2) if avg_rating_given else 0.0,
-            'vehicle_types_used': list(vehicle_types_used),
-            'recent_bookings': recent_bookings_data
-        }
-        
-        return Response(stats)
-
-# Host Views
-class HostLoginView(APIView):
-    """Host login view"""
+class UserLoginView(APIView):
+    """User login view"""
     
     def post(self, request):
         email = request.data.get('email')
@@ -328,211 +226,130 @@ class HostLoginView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            # Try to find host by email or phone
+            # Try to find user by email or phone
             if email:
-                host = Host.objects.get(email=email)
+                user = User.objects.get(email=email)
             else:
-                host = Host.objects.get(phone=phone)
+                user = User.objects.get(phone=phone)
 
-            if check_password(password, host.password):
-                if not host.is_active:
+            if check_password(password, user.password):
+                if not user.is_active:
                     return Response({
                         'error': 'Account is deactivated'
                     }, status=status.HTTP_401_UNAUTHORIZED)
                 
-                serializer = HostSerializer(host)
+                serializer = UserSerializer(user)
                 return Response({
                     'message': 'Login successful',
-                    'host': serializer.data,
-                    'token': str(host.private_token)
+                    'user': serializer.data,
+                    'token': str(user.private_token)
                 }, status=status.HTTP_200_OK)
             else:
                 return Response({
                     'error': 'Invalid credentials'
                 }, status=status.HTTP_401_UNAUTHORIZED)
-        except Host.DoesNotExist:
+        except User.DoesNotExist:
             return Response({
-                'error': 'Host not found with provided credentials'
+                'error': 'User not found with provided credentials'
             }, status=status.HTTP_404_NOT_FOUND)
-        
-class HostRegisterView(APIView):
-    """Host registration view"""
+
+class UserAddPhoneView(APIView):
+    """User add phone number view"""
     
     def post(self, request):
-        data = request.data.copy()
-        # Hash password
-        if 'password' in data:
-            data['password'] = make_password(data['password'])
-        
-        serializer = HostSerializer(data=data)
-        if serializer.is_valid():
-            host = serializer.save()
-            host.password = data['password']  # Ensure password is hashed 
-            host.save()
-            # Generate and send OTP
-            try:
-                generate_and_send_otp.delay(host.id, 'host')
-            except:
-                # If celery is not configured, generate OTP without task
-                otp = ''.join(random.choices(string.digits, k=6))
-                host.otp = otp
-                host.save()
-            
-            return Response({
-                'message': 'Host registered successfully. OTP sent to email.',
-                'host_id': host.id
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class HostStatsView(APIView):
-    """Get host statistics"""
-    
-    def get(self, request, host_id):
-        try:
-            host = Host.objects.get(id=host_id)
-        except Host.DoesNotExist:
-            return Response({
-                'error': 'Host not found'
-            }, status=status.HTTP_404_NOT_FOUND)
-        
-        # Calculate statistics
-        total_vehicles = Vehicle.objects.filter(owner=host).count()
-        active_vehicles = Vehicle.objects.filter(owner=host, is_available=True).count()
-        verified_vehicles = Vehicle.objects.filter(owner=host, is_verified=True).count()
-        total_reviews = Review.objects.filter(host=host).count()
-        
-        # Rating distribution
-        rating_distribution = Review.objects.filter(host=host).values('rating').annotate(
-            count=Count('rating')
-        ).order_by('rating')
-        
-        # Recent reviews
-        recent_reviews = Review.objects.filter(host=host).order_by('-created_at')[:5]
-        recent_reviews_data = ReviewSerializer(recent_reviews, many=True, context={'request': request}).data
-        
-        stats = {
-            'host_info': HostSerializer(host).data,
-            'total_vehicles': total_vehicles,
-            'active_vehicles': active_vehicles,
-            'verified_vehicles': verified_vehicles,
-            'total_reviews': total_reviews,
-            'average_rating': host.rating,
-            'total_bookings': host.total_bookings,
-            'rating_distribution': list(rating_distribution),
-            'recent_reviews': recent_reviews_data
-        }
-        
-        return Response(stats)
-
-class HostAddPhoneView(APIView):
-    """Host add phone number view"""
-    
-    def post(self, request):
-        host_id = request.data.get('host_id')
+        user_id = request.data.get('user_id')
         phone = request.data.get('phone')
         
-        if not host_id or not phone:
+        if not user_id or not phone:
             return Response({
-                'error': 'host_id and phone are required'
+                'error': 'user_id and phone are required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        # if phone number is already present with some other host
-        if Host.objects.filter(phone=phone).exclude(id=host_id).exists():
+        # if phone number is already present with some other user
+        if User.objects.filter(phone=phone).exclude(id=user_id).exists():
             return Response({
-                'error': 'This phone number is already associated with another host'
+                'error': 'This phone number is already associated with another user'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
             otp = ''.join(random.choices(string.digits, k=6))
-            host = Host.objects.get(id=host_id)
-            host.phone = phone
-            host.otp = otp  # Save OTP for verification
-            host.phone_verified = False  # Set phone as not verified
-            host.save()
+            user = User.objects.get(id=user_id)
+            user.phone = phone
+            user.otp = otp  # Save OTP for verification
+            user.phone_verified = False  # Set phone as not verified
+            user.save()
             send_otp_sms.delay(phone, otp)  # Send OTP via SMS
             return Response({
                 'message': 'OTP has been sent to the provided phone number',
             }, status=status.HTTP_200_OK)
-        except Host.DoesNotExist:
+        except User.DoesNotExist:
             return Response({
-                'error': 'Host not found'
+                'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
-
-class HostUpdateProfileView(APIView):
-    """Host update profile view"""
+        
+class UserUpdateProfileView(APIView):
+    """User update profile view"""
     
     def put(self, request):
-        host_id = request.data.get('host_id')
+        user_id = request.data.get('user_id')
         data = request.data.copy()
         
-        if not host_id:
+        if not user_id:
             return Response({
-                'error': 'host_id is required'
+                'error': 'user_id is required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            host = Host.objects.get(id=host_id)
-            serializer = HostSerializer(host, data=data, partial=True)
+            user = User.objects.get(id=user_id)
+            serializer = UserSerializer(user, data=data, partial=True)
             if serializer.is_valid():
-                updated_host = serializer.save()
+                updated_user = serializer.save()
                 return Response({
                     'message': 'Profile updated successfully',
-                    'host': HostSerializer(updated_host).data
+                    'user': UserSerializer(updated_user).data
                 }, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Host.DoesNotExist:
+        except User.DoesNotExist:
             return Response({
-                'error': 'Host not found'
+                'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
-
-class HostDeleteView(APIView):
-    """Host delete account view"""
-    
-    def delete(self, request):
-        host_id = request.data.get('host_id')
         
-        if not host_id:
+class UserDeleteView(APIView):
+    """User delete account view"""
+    def delete(self, request):
+        user_id = request.data.get('user_id')
+        
+        if not user_id:
             return Response({
-                'error': 'host_id is required'
+                'error': 'user_id is required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            host = Host.objects.get(id=host_id)
-            host.is_active = False  # Soft delete
-            host.save()
+            user = User.objects.get(id=user_id)
+            user.is_active = False  # Soft delete
+            user.save()
             return Response({
-                'message': 'Host account deactivated successfully'
+                'message': 'User account deactivated successfully'
             }, status=status.HTTP_200_OK)
-        except Host.DoesNotExist:
+        except User.DoesNotExist:
             return Response({
-                'error': 'Host not found'
-            }, status=status.HTTP_404_NOT_FOUND)      
-
-
-# Customer-Host Common Views
+                'error': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
 
 class VerifyEmailView(APIView):
     """Email verification view"""
     
     def post(self, request):
         email = request.data.get('email')
-        user_type = request.data.get('user_type')  # 'customer' or 'host'
         otp = request.data.get('otp')
         
-        if not all([email, user_type, otp]):
+        if not all([email, otp]):
             return Response({
-                'error': 'email, user_type, and otp are required'
+                'error': 'email and otp are required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            if user_type == 'customer':
-                user = Customer.objects.get(email=email)
-            elif user_type == 'host':
-                user = Host.objects.get(email=email)
-            else:
-                return Response({
-                    'error': 'Invalid user_type. Must be customer or host'
-                }, status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(email=email)
             
             if str(user.otp) == str(otp):
                 user.email_verified = True
@@ -546,7 +363,7 @@ class VerifyEmailView(APIView):
                     'error': 'Invalid OTP'
                 }, status=status.HTTP_400_BAD_REQUEST)
                 
-        except (Customer.DoesNotExist, Host.DoesNotExist):
+        except User.DoesNotExist:
             return Response({
                 'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
@@ -556,23 +373,15 @@ class VerifyPhoneView(APIView):
     
     def post(self, request):
         user_id = request.data.get('user_id')
-        user_type = request.data.get('user_type')  # 'customer' or 'host'
         otp = request.data.get('otp')
         
-        if not all([user_id, user_type, otp]):
+        if not all([user_id, otp]):
             return Response({
-                'error': 'user_id, user_type, and otp are required'
+                'error': 'user_id and otp are required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            if user_type == 'customer':
-                user = Customer.objects.get(id=user_id)
-            elif user_type == 'host':
-                user = Host.objects.get(id=user_id)
-            else:
-                return Response({
-                    'error': 'Invalid user_type. Must be customer or host'
-                }, status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(id=user_id)
             
             if str(user.otp) == str(otp):
                 user.phone_verified = True
@@ -586,7 +395,7 @@ class VerifyPhoneView(APIView):
                     'error': 'Invalid OTP'
                 }, status=status.HTTP_400_BAD_REQUEST)
                 
-        except (Customer.DoesNotExist, Host.DoesNotExist):
+        except User.DoesNotExist:
             return Response({
                 'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
@@ -596,26 +405,24 @@ class ResendOTPView(APIView):
     
     def post(self, request):
         user_id = request.data.get('user_id')
-        user_type = request.data.get('user_type')  # 'customer' or 'host'
         
-        if not all([user_id, user_type]):
+        if not user_id:
             return Response({
-                'error': 'user_id and user_type are required'
+                'error': 'user_id is required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            if user_type == 'customer':
-                user = Customer.objects.get(id=user_id)
-            elif user_type == 'host':
-                user = Host.objects.get(id=user_id)
-            else:
-                return Response({
-                    'error': 'Invalid user_type. Must be customer or host'
-                }, status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(id=user_id)
             
             # Generate and send new OTP
             try:
-                generate_and_send_otp.delay(user.id, user_type)
+                if not user.email_verified:
+                    generate_and_send_otp.delay(user.id, 'user')
+                else:
+                    otp = ''.join(random.choices(string.digits, k=6))
+                    user.otp = otp
+                    user.save()
+                    send_otp_sms.delay(user.phone, otp)
             except:
                 # If celery is not configured, generate OTP without task
                 otp = ''.join(random.choices(string.digits, k=6))
@@ -626,14 +433,14 @@ class ResendOTPView(APIView):
                 'message': 'OTP sent successfully'
             }, status=status.HTTP_200_OK)
                 
-        except (Customer.DoesNotExist, Host.DoesNotExist):
+        except User.DoesNotExist:
             return Response({
                 'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
 
 
 
-# Vehicle views
+# Vehicle Search and Discovery Views
 class VehicleSearchView(APIView):
     """Advanced vehicle search view"""
     
@@ -795,11 +602,5 @@ class VehiclePhotoUploadView(APIView):
             'message': f'{len(uploaded_photos)} photos uploaded successfully',
             'photos': uploaded_photos
         }, status=status.HTTP_201_CREATED)
- 
 
-
-# Stats views
-
-
-
-
+  

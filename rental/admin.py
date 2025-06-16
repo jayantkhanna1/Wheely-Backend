@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Location, Customer, Host, Vehicle, VehiclePhoto, VehicleAvailability, Review
+from .models import Location, User, Vehicle, VehiclePhoto, VehicleAvailability, Review
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -8,8 +8,8 @@ class LocationAdmin(admin.ModelAdmin):
     search_fields = ('city', 'state', 'pincode', 'address')
     readonly_fields = ('created_at', 'updated_at')
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone', 'email_verified', 'phone_verified', 'is_active', 'created_at')
     list_filter = ('email_verified', 'phone_verified', 'driving_license_verified', 'is_active', 'created_at')
     search_fields = ('first_name', 'last_name', 'email', 'phone')
@@ -23,30 +23,6 @@ class CustomerAdmin(admin.ModelAdmin):
         }),
         ('Documents', {
             'fields': ('driving_license', 'driving_license_verified', 'profile_picture')
-        }),
-        ('System', {
-            'fields': ('private_token', 'is_active', 'created_at', 'updated_at')
-        }),
-    )
-
-@admin.register(Host)
-class HostAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'phone', 'rating', 'total_bookings', 'email_verified', 'phone_verified', 'is_active')
-    list_filter = ('email_verified', 'phone_verified', 'business_license_verified', 'is_active', 'created_at')
-    search_fields = ('first_name', 'last_name', 'email', 'phone')
-    readonly_fields = ('private_token', 'rating', 'total_bookings', 'created_at', 'updated_at')
-    fieldsets = (
-        ('Personal Information', {
-            'fields': ('first_name', 'last_name', 'email', 'phone', 'location', 'profile_picture')
-        }),
-        ('Verification', {
-            'fields': ('email_verified', 'phone_verified', 'otp')
-        }),
-        ('Business', {
-            'fields': ('business_license', 'business_license_verified')
-        }),
-        ('Stats', {
-            'fields': ('rating', 'total_bookings')
         }),
         ('System', {
             'fields': ('private_token', 'is_active', 'created_at', 'updated_at')
@@ -104,7 +80,7 @@ class VehicleAvailabilityAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'vehicle', 'host', 'rating', 'is_verified_booking', 'created_at')
+    list_display = ('user', 'vehicle', 'rating', 'is_verified_booking', 'created_at')
     list_filter = ('rating', 'is_verified_booking', 'created_at')
-    search_fields = ('customer__first_name', 'customer__last_name', 'vehicle__vehicle_name', 'host__first_name')
+    search_fields = ('user__first_name', 'user__last_name', 'vehicle__vehicle_name')
     readonly_fields = ('created_at', 'updated_at')

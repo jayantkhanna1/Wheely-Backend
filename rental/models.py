@@ -25,8 +25,8 @@ class Location(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-class BaseUser(models.Model):
-    """Abstract base class for Customer and Host"""
+class User(models.Model):
+    """Abstract base class for user"""
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -40,33 +40,18 @@ class BaseUser(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    driving_license = models.FileField(upload_to='licenses/users/', blank=True, null=True)
+    driving_license_verified = models.BooleanField(default=False)
+    profile_picture = models.ImageField(upload_to='profiles/users/', blank=True, null=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    default_location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True, related_name='default_location')
 
     class Meta:
-        abstract = True
+        ordering = ['-created_at']
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
-class Customer(BaseUser):
-    """Customer model for users who rent vehicles"""
-    driving_license = models.FileField(upload_to='licenses/customers/', blank=True, null=True)
-    driving_license_verified = models.BooleanField(default=False)
-    profile_picture = models.ImageField(upload_to='profiles/customers/', blank=True, null=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    
-    class Meta:
-        ordering = ['-created_at']
-
-class Host(BaseUser):
-    """Host model for users who rent out vehicles"""
-    profile_picture = models.ImageField(upload_to='profiles/hosts/', blank=True, null=True)
-    business_license = models.FileField(upload_to='licenses/business/', blank=True, null=True)
-    business_license_verified = models.BooleanField(default=False)
-    rating = models.FloatField(default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
-    total_bookings = models.PositiveIntegerField(default=0)
-    
-    class Meta:
-        ordering = ['-created_at']
+        
 
 class Vehicle(models.Model):
     """Vehicle model for rental vehicles"""
@@ -103,7 +88,7 @@ class Vehicle(models.Model):
     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    owner = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='vehicles')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vehicles')
     
     # Documents - not required for bicycles
     vehicle_rc = models.FileField(upload_to='documents/rc/', blank=True, null=True)
@@ -159,10 +144,9 @@ class VehicleAvailability(models.Model):
         ordering = ['start_date']
 
 class Review(models.Model):
-    """Review model for customer feedback"""
+    """Review model for user feedback"""
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='reviews')
-    host = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='reviews')
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
     rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.TextField(blank=True)
     is_verified_booking = models.BooleanField(default=False)
@@ -170,8 +154,8 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.customer.first_name} - {self.vehicle.vehicle_name} - {self.rating} stars"
+        return f"{self.user.first_name} - {self.vehicle.vehicle_name} - {self.rating} stars"
 
     class Meta:
         ordering = ['-created_at']
-        unique_together = ['vehicle', 'customer']  # One review per customer per vehicle
+        unique_together = ['vehicle', 'user']  # One review per user per vehicle

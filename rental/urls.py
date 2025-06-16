@@ -4,8 +4,7 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'locations', LocationViewSet)
-router.register(r'customers', CustomerViewSet)
-router.register(r'hosts', HostViewSet)
+router.register(r'users', UserViewSet)
 router.register(r'vehicles', VehicleViewSet)
 router.register(r'vehicle-photos', VehiclePhotoViewSet)
 router.register(r'vehicle-availability', VehicleAvailabilityViewSet)
@@ -14,27 +13,20 @@ router.register(r'reviews', ReviewViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     
-    # Host Endpoints
-    path('host/register/', HostRegisterView.as_view(), name='host-register'),
-    path('host/login/', HostLoginView.as_view(), name='host-login'),
-    path('hosts/<int:host_id>/stats/', HostStatsView.as_view(), name='host-stats'),
-    path('host/addPhone/', HostAddPhoneView.as_view(), name='host-add-phone'),
-    path('host/updateProfile/', HostUpdateProfileView.as_view(), name='host-update-profile'),
-    path('host/deleteProfile/', HostDeleteView.as_view(), name='host-delete-profile'),
-
-    # Customer Endpoints
-    path('customer/register/', CustomerRegisterView.as_view(), name='customer-register'),
-    path('customer/login/', CustomerLoginView.as_view(), name='customer-login'),
-    path('customers/<int:customer_id>/stats/', CustomerStatsView.as_view(), name='customer-stats'),
+    # User Authentication Endpoints
+    path('user/register/', UserRegisterView.as_view(), name='user-register'),
+    path('user/login/', UserLoginView.as_view(), name='user-login'),
+    path('user/addPhone/', UserAddPhoneView.as_view(), name='user-add-phone'),
+    path('user/updateProfile/', UserUpdateProfileView.as_view(), name='user-update-profile'),
+    path('user/deleteProfile/', UserDeleteView.as_view(), name='user-delete-profile'),
+    path('user/verifyEmail/', VerifyEmailView.as_view(), name='verify-email'),
+    path('user/verifyPhone/', VerifyPhoneView.as_view(), name='verify-phone'),
+    path('user/resendOtp/', ResendOTPView.as_view(), name='resend-otp'),
     
-    # Customer and Host Common Endpoints
-    path('verifyEmail/', VerifyEmailView.as_view(), name='verify-email'),
-    path('verifyPhone/', VerifyPhoneView.as_view(), name='verify-phone'),
-    path('resendOtp/', ResendOTPView.as_view(), name='resend-otp'),
-
-    # Vehicle Endpoints
+    # Vehicle Search and Discovery Endpoints
     path('vehicles/search/', VehicleSearchView.as_view(), name='vehicle-search'),
     path('vehicles/nearby/', NearbyVehiclesView.as_view(), name='nearby-vehicles'),
     path('vehicles/available/', AvailableVehiclesView.as_view(), name='available-vehicles'),
     path('upload/vehicle-photos/', VehiclePhotoUploadView.as_view(), name='upload-vehicle-photos'),
+
 ]
