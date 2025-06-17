@@ -997,3 +997,549 @@ INFO 2025-06-16 16:25:39,397 autoreload 3303423 140461296001472 /home/jayant/jay
 INFO 2025-06-16 16:25:39,839 autoreload 3303464 139824440148416 Watching for file changes with StatReloader
 INFO 2025-06-16 16:25:57,424 autoreload 3303464 139824440148416 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
 INFO 2025-06-16 16:25:57,879 autoreload 3303626 140684095939008 Watching for file changes with StatReloader
+INFO 2025-06-16 16:27:21,133 autoreload 3305256 139935392813504 Watching for file changes with StatReloader
+INFO 2025-06-17 01:01:27,741 basehttp 3305256 139935299401280 "GET /admin/rental/user/2/change/ HTTP/1.1" 200 20693
+INFO 2025-06-17 01:01:27,934 basehttp 3305256 139935299401280 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-06-17 21:32:03,488 autoreload 522298 140078780273088 Watching for file changes with StatReloader
+INFO 2025-06-17 21:32:43,577 autoreload 522298 140078780273088 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 21:32:44,111 autoreload 524901 140118035788224 Watching for file changes with StatReloader
+INFO 2025-06-17 21:32:48,625 autoreload 524901 140118035788224 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 21:32:49,055 autoreload 525025 140216708092352 Watching for file changes with StatReloader
+INFO 2025-06-17 21:32:50,572 autoreload 525025 140216708092352 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 21:32:50,971 autoreload 525087 139732662403520 Watching for file changes with StatReloader
+INFO 2025-06-17 21:32:57,412 autoreload 525087 139732662403520 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 21:32:57,839 autoreload 525247 140559494644160 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:01,387 autoreload 525247 140559494644160 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 21:33:01,860 autoreload 525352 139889928401344 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:12,330 autoreload 525352 139889928401344 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:12,796 autoreload 525602 140662908871104 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:16,426 autoreload 525602 140662908871104 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:16,777 autoreload 525710 140656558916032 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:18,042 autoreload 525710 140656558916032 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:18,374 autoreload 525745 139785714139584 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:41,045 autoreload 525745 139785714139584 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:41,478 autoreload 526414 139968286069184 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:47,948 autoreload 526414 139968286069184 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:48,493 autoreload 526598 140627478045120 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:50,997 autoreload 526598 140627478045120 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:51,416 autoreload 526670 139751813517760 Watching for file changes with StatReloader
+INFO 2025-06-17 21:33:56,998 autoreload 526670 139751813517760 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:33:57,509 autoreload 526824 139814759772608 Watching for file changes with StatReloader
+INFO 2025-06-17 21:34:01,102 autoreload 526824 139814759772608 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:34:01,531 autoreload 527234 139741249802688 Watching for file changes with StatReloader
+INFO 2025-06-17 21:34:18,021 autoreload 527234 139741249802688 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:34:18,665 autoreload 527631 140615486939584 Watching for file changes with StatReloader
+INFO 2025-06-17 21:34:19,955 autoreload 527631 140615486939584 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:34:20,322 autoreload 527672 140628382499264 Watching for file changes with StatReloader
+INFO 2025-06-17 21:35:06,403 autoreload 527672 140628382499264 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:35:06,833 autoreload 528802 140027563229632 Watching for file changes with StatReloader
+INFO 2025-06-17 21:35:46,658 autoreload 528802 140027563229632 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:35:47,127 autoreload 529805 139751557661120 Watching for file changes with StatReloader
+INFO 2025-06-17 21:35:55,646 autoreload 529805 139751557661120 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:35:56,053 autoreload 530046 139737742242240 Watching for file changes with StatReloader
+INFO 2025-06-17 21:35:58,372 autoreload 530046 139737742242240 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:35:58,736 autoreload 530130 139820804207040 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:01,979 autoreload 530130 139820804207040 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:02,341 autoreload 530211 140352225362368 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:04,792 autoreload 530211 140352225362368 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:05,277 autoreload 530294 140623472853440 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:06,565 autoreload 530294 140623472853440 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:06,910 autoreload 530336 140040105091520 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:14,373 autoreload 530336 140040105091520 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:14,920 autoreload 530531 140584825360832 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:16,396 autoreload 530531 140584825360832 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:16,923 autoreload 530589 139627610935744 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:18,211 autoreload 530589 139627610935744 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:18,674 autoreload 530643 140063343456704 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:23,137 autoreload 530643 140063343456704 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:23,602 autoreload 530766 140019762803136 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:26,886 autoreload 530766 140019762803136 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:27,459 autoreload 530869 139915291193792 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:34,831 autoreload 530869 139915291193792 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:35,476 autoreload 531177 139687928832448 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:37,101 autoreload 531177 139687928832448 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:37,669 autoreload 531307 140204330918336 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:39,189 autoreload 531307 140204330918336 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:39,572 autoreload 531370 140390431158720 Watching for file changes with StatReloader
+INFO 2025-06-17 21:36:42,096 autoreload 531370 140390431158720 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:36:42,569 autoreload 531431 140318450971072 Watching for file changes with StatReloader
+INFO 2025-06-17 21:38:19,315 autoreload 531431 140318450971072 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 21:38:19,735 autoreload 533556 139959590605248 Watching for file changes with StatReloader
+INFO 2025-06-17 22:42:53,261 autoreload 533556 139959590605248 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:42:53,776 autoreload 620339 140205266772416 Watching for file changes with StatReloader
+INFO 2025-06-17 22:43:19,572 autoreload 620339 140205266772416 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:43:19,978 autoreload 620911 139814729953728 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:14,993 autoreload 620911 139814729953728 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:44:15,430 autoreload 622222 140101652419008 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:16,922 autoreload 622222 140101652419008 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:44:17,372 autoreload 622290 139749065003456 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:18,773 autoreload 622290 139749065003456 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:44:19,188 autoreload 622337 140377926357440 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:33,792 autoreload 622337 140377926357440 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:34,244 autoreload 622841 139636351287744 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:35,635 autoreload 622841 139636351287744 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:36,109 autoreload 622892 140224402276800 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:37,430 autoreload 622892 140224402276800 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:37,871 autoreload 622947 140645609439680 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:39,227 autoreload 622947 140645609439680 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:39,591 autoreload 622988 140261007036864 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:43,934 autoreload 622988 140261007036864 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:44,300 autoreload 623117 140387803652544 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:45,583 autoreload 623117 140387803652544 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:45,946 autoreload 623159 139948018815424 Watching for file changes with StatReloader
+INFO 2025-06-17 22:44:57,445 autoreload 623159 139948018815424 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:44:57,830 autoreload 623441 140428725510592 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:01,311 autoreload 623441 140428725510592 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:45:01,711 autoreload 623552 139883493388736 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:11,183 autoreload 623552 139883493388736 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:45:11,586 autoreload 623771 140069727723968 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:13,976 autoreload 623771 140069727723968 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:45:14,377 autoreload 623850 140592492999104 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:23,848 autoreload 623850 140592492999104 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:45:24,344 autoreload 624080 140593550311872 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:36,876 autoreload 624080 140593550311872 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:45:37,252 autoreload 624524 140182928601536 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:43,720 autoreload 624524 140182928601536 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:45:44,174 autoreload 624709 140440305119680 Watching for file changes with StatReloader
+INFO 2025-06-17 22:45:48,655 autoreload 624709 140440305119680 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/tasks.py changed, reloading.
+INFO 2025-06-17 22:45:49,134 autoreload 624850 140191281287616 Watching for file changes with StatReloader
+INFO 2025-06-17 22:48:37,685 basehttp 624850 140191188645440 "GET /admin/ HTTP/1.1" 200 10626
+INFO 2025-06-17 22:48:37,761 basehttp 624850 140191188645440 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,763 basehttp 624850 140191188645440 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,772 basehttp 624850 140191178155584 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,776 basehttp 624850 140191169762880 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,779 basehttp 624850 140190953764416 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,795 basehttp 624850 140190945371712 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,795 basehttp 624850 140190936979008 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,848 basehttp 624850 140190945371712 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,849 basehttp 624850 140191188645440 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:37,850 basehttp 624850 140190936979008 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+WARNING 2025-06-17 22:48:38,287 log 624850 140191188645440 Not Found: /favicon.ico
+WARNING 2025-06-17 22:48:38,287 basehttp 624850 140191188645440 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:48:41,377 basehttp 624850 140191188645440 "GET /admin/rental/user/ HTTP/1.1" 200 14376
+INFO 2025-06-17 22:48:41,420 basehttp 624850 140191188645440 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,426 basehttp 624850 140190953764416 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,426 basehttp 624850 140191178155584 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,442 basehttp 624850 140191178155584 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,443 basehttp 624850 140190953764416 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,446 basehttp 624850 140191169762880 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-06-17 22:48:41,448 basehttp 624850 140190936979008 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-06-17 22:48:41,454 basehttp 624850 140191169762880 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,454 basehttp 624850 140190936979008 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,455 basehttp 624850 140190945371712 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 22:48:41,459 basehttp 624850 140190945371712 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,469 basehttp 624850 140191188645440 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,512 basehttp 624850 140191169762880 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,513 basehttp 624850 140190945371712 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,521 basehttp 624850 140191188645440 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:41,522 basehttp 624850 140190936979008 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:42,988 basehttp 624850 140191188645440 "GET /admin/rental/user/2/change/ HTTP/1.1" 200 20693
+INFO 2025-06-17 22:48:43,031 basehttp 624850 140190945371712 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,034 basehttp 624850 140190953764416 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,034 basehttp 624850 140191169762880 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,035 basehttp 624850 140191188645440 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,036 basehttp 624850 140190945371712 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,047 basehttp 624850 140190936979008 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 22:48:43,084 basehttp 624850 140190945371712 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,084 basehttp 624850 140191188645440 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:43,243 basehttp 624850 140191188645440 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-06-17 22:48:45,383 basehttp 624850 140191188645440 "GET /admin/rental/user/ HTTP/1.1" 200 14376
+INFO 2025-06-17 22:48:50,119 basehttp 624850 140191188645440 "GET /admin/rental/user/2/change/ HTTP/1.1" 200 20693
+INFO 2025-06-17 22:48:50,173 basehttp 624850 140191188645440 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 22:48:59,649 basehttp 624850 140191188645440 "GET /admin/rental/user/ HTTP/1.1" 200 14376
+INFO 2025-06-17 22:50:00,059 autoreload 624850 140191281287616 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/admin.py changed, reloading.
+INFO 2025-06-17 22:50:00,634 autoreload 631142 140662141563328 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:50:08,599 log 631142 140661980395072 Not Found: /admin/rental/user/
+WARNING 2025-06-17 22:50:08,599 basehttp 631142 140661980395072 "GET /admin/rental/user/ HTTP/1.1" 404 5195
+WARNING 2025-06-17 22:50:08,719 log 631142 140661980395072 Not Found: /favicon.ico
+WARNING 2025-06-17 22:50:08,719 basehttp 631142 140661980395072 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:50:17,037 basehttp 631142 140661980395072 "GET /admin/rental HTTP/1.1" 301 0
+INFO 2025-06-17 22:50:17,122 basehttp 631142 140661980395072 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:19,862 basehttp 631142 140661980395072 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:19,901 basehttp 631142 140661969905216 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:19,902 basehttp 631142 140661953119808 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:19,903 basehttp 631142 140661980395072 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:19,904 basehttp 631142 140661961512512 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:19,904 basehttp 631142 140661943678528 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:19,910 basehttp 631142 140661935285824 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:19,911 basehttp 631142 140661961512512 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:19,968 basehttp 631142 140661980395072 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-06-17 22:50:19,968 basehttp 631142 140661961512512 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-17 22:50:20,096 basehttp 631142 140661961512512 "GET /admin/rental/ HTTP/1.1" 200 6856
+WARNING 2025-06-17 22:50:20,098 log 631142 140661980395072 Not Found: /favicon.ico
+WARNING 2025-06-17 22:50:20,099 basehttp 631142 140661980395072 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:50:20,161 basehttp 631142 140661961512512 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:20,162 basehttp 631142 140661943678528 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:20,162 basehttp 631142 140661980395072 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:20,162 basehttp 631142 140661969905216 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:20,162 basehttp 631142 140661935285824 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:20,163 basehttp 631142 140661953119808 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:20,167 basehttp 631142 140661980395072 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:20,215 basehttp 631142 140661961512512 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-06-17 22:50:20,217 basehttp 631142 140661980395072 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+WARNING 2025-06-17 22:50:20,346 log 631142 140661961512512 Not Found: /favicon.ico
+WARNING 2025-06-17 22:50:20,347 basehttp 631142 140661961512512 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:50:28,987 autoreload 631935 139918836134336 Watching for file changes with StatReloader
+INFO 2025-06-17 22:50:31,436 basehttp 631935 139918743434816 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:31,475 basehttp 631935 139918716159552 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:31,476 basehttp 631935 139918743434816 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:31,477 basehttp 631935 139918724552256 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:31,478 basehttp 631935 139918732944960 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:31,478 basehttp 631935 139918707766848 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:31,551 basehttp 631935 139918743434816 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:31,551 basehttp 631935 139918707766848 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:31,558 basehttp 631935 139918707766848 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-17 22:50:31,559 basehttp 631935 139918732944960 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-06-17 22:50:31,732 log 631935 139918707766848 Not Found: /favicon.ico
+WARNING 2025-06-17 22:50:31,733 basehttp 631935 139918707766848 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:50:32,768 basehttp 631935 139918707766848 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:32,803 basehttp 631935 139918707766848 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:32,803 basehttp 631935 139918724552256 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:32,803 basehttp 631935 139918357558848 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:32,803 basehttp 631935 139918743434816 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:32,804 basehttp 631935 139918732944960 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:32,804 basehttp 631935 139918716159552 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:32,808 basehttp 631935 139918732944960 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:32,887 basehttp 631935 139918707766848 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-06-17 22:50:32,887 basehttp 631935 139918732944960 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-17 22:50:32,956 basehttp 631935 139918707766848 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:33,030 basehttp 631935 139918743434816 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:33,031 basehttp 631935 139918707766848 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:33,031 basehttp 631935 139918716159552 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:33,031 basehttp 631935 139918732944960 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:33,031 basehttp 631935 139918724552256 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:33,039 basehttp 631935 139918732944960 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:33,040 basehttp 631935 139918716159552 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:33,093 basehttp 631935 139918707766848 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:33,168 basehttp 631935 139918707766848 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:33,168 basehttp 631935 139918732944960 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:33,168 basehttp 631935 139918357558848 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:33,170 basehttp 631935 139918724552256 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:33,170 basehttp 631935 139918743434816 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:33,171 basehttp 631935 139918716159552 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:33,175 basehttp 631935 139918743434816 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:33,207 basehttp 631935 139918716159552 "GET /admin/rental/ HTTP/1.1" 200 6856
+INFO 2025-06-17 22:50:33,243 basehttp 631935 139918707766848 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-06-17 22:50:33,244 basehttp 631935 139918743434816 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-17 22:50:33,301 basehttp 631935 139918357558848 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:33,302 basehttp 631935 139918724552256 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:33,302 basehttp 631935 139918732944960 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:33,303 basehttp 631935 139918716159552 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:33,304 basehttp 631935 139918743434816 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:33,304 basehttp 631935 139918707766848 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:33,309 basehttp 631935 139918743434816 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:33,365 basehttp 631935 139918743434816 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-17 22:50:33,366 basehttp 631935 139918716159552 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-06-17 22:50:33,480 log 631935 139918743434816 Not Found: /favicon.ico
+WARNING 2025-06-17 22:50:33,481 basehttp 631935 139918743434816 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:50:41,759 autoreload 631935 139918836134336 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/admin.py changed, reloading.
+INFO 2025-06-17 22:50:42,255 autoreload 632410 140673870422464 Watching for file changes with StatReloader
+INFO 2025-06-17 22:50:44,777 autoreload 632410 140673870422464 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/admin.py changed, reloading.
+INFO 2025-06-17 22:50:45,231 autoreload 632489 140206608286144 Watching for file changes with StatReloader
+INFO 2025-06-17 22:50:50,761 autoreload 632489 140206608286144 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/admin.py changed, reloading.
+INFO 2025-06-17 22:50:51,181 autoreload 632631 139709209989568 Watching for file changes with StatReloader
+INFO 2025-06-17 22:50:53,462 basehttp 632631 139709045012032 "GET /admin/rental/ HTTP/1.1" 200 7266
+INFO 2025-06-17 22:50:53,506 basehttp 632631 139709045012032 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-06-17 22:50:53,507 basehttp 632631 139709036619328 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-06-17 22:50:53,507 basehttp 632631 139709028226624 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-06-17 22:50:53,507 basehttp 632631 139709019833920 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-06-17 22:50:53,507 basehttp 632631 139709011441216 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-06-17 22:50:53,512 basehttp 632631 139709019833920 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-06-17 22:50:53,512 basehttp 632631 139709011441216 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-06-17 22:50:53,601 basehttp 632631 139709019833920 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-06-17 22:50:53,601 basehttp 632631 139709011441216 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-06-17 22:50:53,734 log 632631 139709019833920 Not Found: /favicon.ico
+WARNING 2025-06-17 22:50:53,735 basehttp 632631 139709019833920 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-17 22:50:56,523 basehttp 632631 139709019833920 "GET /admin/rental/user/ HTTP/1.1" 200 14624
+INFO 2025-06-17 22:50:56,580 basehttp 632631 139709019833920 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+WARNING 2025-06-17 22:54:56,630 log 632631 139709011441216 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:54:56,631 basehttp 632631 139709011441216 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+WARNING 2025-06-17 22:55:18,024 log 632631 139709011441216 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:55:18,024 basehttp 632631 139709011441216 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+INFO 2025-06-17 22:55:33,219 autoreload 632631 139709209989568 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:55:33,635 autoreload 639301 140060188139968 Watching for file changes with StatReloader
+INFO 2025-06-17 22:55:40,170 autoreload 639301 140060188139968 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:55:40,546 autoreload 639503 139716945166784 Watching for file changes with StatReloader
+ERROR 2025-06-17 22:55:43,821 log 639503 139716852708928 Internal Server Error: /api/upload/vehicle/
+ERROR 2025-06-17 22:55:43,821 basehttp 639503 139716852708928 "POST /api/upload/vehicle/ HTTP/1.1" 500 123
+INFO 2025-06-17 22:55:51,151 autoreload 639503 139716945166784 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:55:51,535 autoreload 639914 140122661085632 Watching for file changes with StatReloader
+INFO 2025-06-17 22:55:59,019 autoreload 639914 140122661085632 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:55:59,450 autoreload 640101 139884503626176 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:56:03,746 log 640101 139884410959424 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:56:03,747 basehttp 640101 139884410959424 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+INFO 2025-06-17 22:56:15,156 autoreload 640101 139884503626176 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:15,693 autoreload 640462 139754381328832 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:17,309 autoreload 640462 139754381328832 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:18,002 autoreload 640538 140313562362304 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:19,372 autoreload 640538 140313562362304 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:19,768 autoreload 640577 140293607768512 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:25,135 autoreload 640577 140293607768512 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:25,758 autoreload 640742 140296826233280 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:30,072 autoreload 640742 140296826233280 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:30,521 autoreload 640863 140610874069440 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:31,918 autoreload 640863 140610874069440 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:32,296 autoreload 640915 140677346333120 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:36,817 autoreload 640915 140677346333120 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:37,273 autoreload 641036 140285778346432 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:56:41,813 log 641036 140285685265984 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:56:41,814 basehttp 641036 140285685265984 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+INFO 2025-06-17 22:56:55,180 autoreload 641036 140285778346432 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:55,736 autoreload 641608 140601379578304 Watching for file changes with StatReloader
+INFO 2025-06-17 22:56:59,539 autoreload 641608 140601379578304 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:56:59,928 autoreload 641724 140456709521856 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:57:01,161 log 641724 140456617834048 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:57:01,161 basehttp 641724 140456617834048 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+INFO 2025-06-17 22:57:14,664 autoreload 641724 140456709521856 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:57:15,098 autoreload 642075 140357179630016 Watching for file changes with StatReloader
+INFO 2025-06-17 22:57:17,614 autoreload 642075 140357179630016 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:57:18,246 autoreload 642172 139686866624960 Watching for file changes with StatReloader
+INFO 2025-06-17 22:57:19,784 autoreload 642172 139686866624960 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:57:20,331 autoreload 642226 140543562879424 Watching for file changes with StatReloader
+INFO 2025-06-17 22:57:25,162 autoreload 642226 140543562879424 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:57:25,563 autoreload 642359 140655096877504 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:57:28,032 log 642359 140654935012928 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:57:28,033 basehttp 642359 140654935012928 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+INFO 2025-06-17 22:57:35,300 autoreload 642359 140655096877504 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:57:35,706 autoreload 642608 140198100648384 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:57:38,042 log 642608 140197933086272 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:57:38,043 basehttp 642608 140197933086272 "POST /api/upload/vehicle/ HTTP/1.1" 400 123
+WARNING 2025-06-17 22:57:48,327 log 642608 140197933086272 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:57:48,327 basehttp 642608 140197933086272 "POST /api/upload/vehicle/ HTTP/1.1" 400 123
+INFO 2025-06-17 22:57:59,579 autoreload 642608 140198100648384 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:58:00,361 autoreload 643330 140319702458816 Watching for file changes with StatReloader
+INFO 2025-06-17 22:58:02,090 autoreload 643330 140319702458816 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:58:02,546 autoreload 643416 139906465247680 Watching for file changes with StatReloader
+WARNING 2025-06-17 22:58:06,925 log 643416 139906372335168 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 22:58:06,925 basehttp 643416 139906372335168 "POST /api/upload/vehicle/ HTTP/1.1" 400 216
+INFO 2025-06-17 22:58:26,463 autoreload 643416 139906465247680 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:58:26,946 autoreload 643970 140061769806272 Watching for file changes with StatReloader
+INFO 2025-06-17 22:58:28,520 autoreload 643970 140061769806272 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 22:58:28,976 autoreload 644029 139683346411968 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:35,825 autoreload 644029 139683346411968 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:36,684 autoreload 682371 140341172883904 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:39,545 autoreload 682371 140341172883904 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:40,092 autoreload 682457 139969065996736 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:45,821 autoreload 682457 139969065996736 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:46,953 autoreload 682688 140273513001408 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:49,408 autoreload 682688 140273513001408 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:50,391 autoreload 682814 139672061780416 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:52,289 autoreload 682814 139672061780416 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:53,101 autoreload 682912 140401548886464 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:56,417 autoreload 682912 140401548886464 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:57,092 autoreload 683001 140152524267968 Watching for file changes with StatReloader
+INFO 2025-06-17 23:26:59,041 autoreload 683001 140152524267968 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:26:59,695 autoreload 683061 140179608437184 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:01,604 autoreload 683061 140179608437184 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:02,224 autoreload 683124 139764428980672 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:14,209 autoreload 683124 139764428980672 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:14,986 autoreload 683412 139633583296960 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:16,836 autoreload 683412 139633583296960 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:17,461 autoreload 683489 140183291859392 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:19,341 autoreload 683489 140183291859392 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:20,080 autoreload 683537 139997635817920 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:21,979 autoreload 683537 139997635817920 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:35,820 autoreload 684200 139767436513728 Watching for file changes with StatReloader
+WARNING 2025-06-17 23:27:38,092 log 684200 139767343740480 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 23:27:38,094 basehttp 684200 139767343740480 "POST /api/upload/vehicle/ HTTP/1.1" 400 216
+INFO 2025-06-17 23:27:51,836 autoreload 684200 139767436513728 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:52,634 autoreload 684646 140659068842432 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:55,563 autoreload 684646 140659068842432 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:56,265 autoreload 684814 140472074801600 Watching for file changes with StatReloader
+INFO 2025-06-17 23:27:59,092 autoreload 684814 140472074801600 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:27:59,642 autoreload 684911 140065663476160 Watching for file changes with StatReloader
+INFO 2025-06-17 23:28:02,371 autoreload 684911 140065663476160 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:28:03,031 autoreload 684964 139769947726272 Watching for file changes with StatReloader
+INFO 2025-06-17 23:28:04,814 autoreload 684964 139769947726272 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:28:05,510 autoreload 685044 140173271843264 Watching for file changes with StatReloader
+INFO 2025-06-17 23:28:07,346 autoreload 685044 140173271843264 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:28:07,952 autoreload 685091 139700873572800 Watching for file changes with StatReloader
+INFO 2025-06-17 23:28:10,892 autoreload 685091 139700873572800 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-17 23:28:11,923 autoreload 685187 140478569243072 Watching for file changes with StatReloader
+WARNING 2025-06-17 23:28:15,518 log 685187 140478475400768 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 23:28:15,519 basehttp 685187 140478475400768 "POST /api/upload/vehicle/ HTTP/1.1" 400 216
+ERROR 2025-06-17 23:29:02,717 log 685187 140478475400768 Internal Server Error: /api/upload/vehicle/
+ERROR 2025-06-17 23:29:02,718 basehttp 685187 140478475400768 "POST /api/upload/vehicle/ HTTP/1.1" 500 301
+INFO 2025-06-17 23:30:42,182 basehttp 685187 140478459139648 "GET /admin/rental/vehicle/ HTTP/1.1" 200 12235
+INFO 2025-06-17 23:30:42,278 basehttp 685187 140478459139648 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 23:30:45,639 basehttp 685187 140478459139648 "GET /admin/rental/vehiclephoto/ HTTP/1.1" 200 10545
+INFO 2025-06-17 23:30:45,722 basehttp 685187 140478459139648 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 23:30:46,300 basehttp 685187 140478459139648 "GET /admin/rental/vehicleavailability/ HTTP/1.1" 200 11237
+INFO 2025-06-17 23:30:46,398 basehttp 685187 140478459139648 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 23:30:47,338 basehttp 685187 140478459139648 "GET /admin/rental/location/ HTTP/1.1" 200 13596
+INFO 2025-06-17 23:30:47,447 basehttp 685187 140478459139648 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 23:30:53,752 basehttp 685187 140478459139648 "POST /admin/rental/location/ HTTP/1.1" 200 9374
+INFO 2025-06-17 23:30:53,805 basehttp 685187 140478459139648 "GET /static/admin/js/cancel.js HTTP/1.1" 304 0
+INFO 2025-06-17 23:30:54,746 basehttp 685187 140478459139648 "POST /admin/rental/location/ HTTP/1.1" 302 0
+INFO 2025-06-17 23:30:54,792 basehttp 685187 140478459139648 "GET /admin/rental/location/ HTTP/1.1" 200 10695
+INFO 2025-06-17 23:30:54,902 basehttp 685187 140478459139648 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-17 23:31:15,625 autoreload 685187 140478569243072 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:16,341 autoreload 689533 140365751660992 Watching for file changes with StatReloader
+WARNING 2025-06-17 23:31:20,176 log 689533 140365659108928 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 23:31:20,177 basehttp 689533 140365659108928 "POST /api/upload/vehicle/ HTTP/1.1" 400 124
+INFO 2025-06-17 23:31:40,819 autoreload 689533 140365751660992 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:41,891 autoreload 690108 139654343983552 Watching for file changes with StatReloader
+INFO 2025-06-17 23:31:44,652 autoreload 690108 139654343983552 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:45,627 autoreload 690210 140384712622528 Watching for file changes with StatReloader
+INFO 2025-06-17 23:31:48,475 autoreload 690210 140384712622528 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:49,068 autoreload 690307 139641787376064 Watching for file changes with StatReloader
+INFO 2025-06-17 23:31:51,596 autoreload 690307 139641787376064 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:52,261 autoreload 690368 140099718296000 Watching for file changes with StatReloader
+INFO 2025-06-17 23:31:53,697 autoreload 690368 140099718296000 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:54,309 autoreload 690430 140201953477056 Watching for file changes with StatReloader
+INFO 2025-06-17 23:31:56,936 autoreload 690430 140201953477056 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:31:57,592 autoreload 690505 140089690268096 Watching for file changes with StatReloader
+INFO 2025-06-17 23:32:02,237 autoreload 690505 140089690268096 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:32:03,403 autoreload 690707 140610835255744 Watching for file changes with StatReloader
+WARNING 2025-06-17 23:32:14,359 log 690707 140610742777408 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-17 23:32:14,360 basehttp 690707 140610742777408 "POST /api/upload/vehicle/ HTTP/1.1" 400 123
+INFO 2025-06-17 23:32:20,707 autoreload 691278 140397333955008 Watching for file changes with StatReloader
+INFO 2025-06-17 23:32:23,715 basehttp 691278 140397170914880 "POST /api/upload/vehicle/ HTTP/1.1" 201 3344
+INFO 2025-06-17 23:35:00,926 basehttp 691278 140397159376448 "POST /api/upload/vehicle/ HTTP/1.1" 201 3407
+INFO 2025-06-17 23:45:47,593 autoreload 691278 140397333955008 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:45:49,259 autoreload 709048 140419839300032 Watching for file changes with StatReloader
+INFO 2025-06-17 23:45:51,927 autoreload 709048 140419839300032 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:45:53,892 autoreload 709225 139981119787456 Watching for file changes with StatReloader
+INFO 2025-06-17 23:45:57,997 autoreload 709225 139981119787456 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:45:58,919 autoreload 709422 140347428286912 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:17,373 autoreload 709422 140347428286912 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 23:46:18,630 autoreload 709840 140212745400768 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:21,846 autoreload 709840 140212745400768 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 23:46:22,900 autoreload 709936 139704251060672 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:24,934 autoreload 709936 139704251060672 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 23:46:26,159 autoreload 710021 140402010018240 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:30,414 autoreload 710021 140402010018240 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 23:46:31,229 autoreload 710129 140253435974080 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:36,355 autoreload 710129 140253435974080 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/urls.py changed, reloading.
+INFO 2025-06-17 23:46:37,293 autoreload 710270 140526523482560 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:49,124 autoreload 710270 140526523482560 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:46:50,630 autoreload 710556 140185182114240 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:52,563 autoreload 710556 140185182114240 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:46:53,696 autoreload 710636 140499520336320 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:55,812 autoreload 710636 140499520336320 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:46:57,190 autoreload 710709 139866919260608 Watching for file changes with StatReloader
+INFO 2025-06-17 23:46:59,782 autoreload 710709 139866919260608 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:01,119 autoreload 710864 140104528396736 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:06,771 autoreload 710864 140104528396736 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:08,383 autoreload 711098 140040500330944 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:11,538 autoreload 711098 140040500330944 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:13,207 autoreload 711208 139967065825728 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:17,228 autoreload 711208 139967065825728 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:18,572 autoreload 711318 140187606065600 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:22,511 autoreload 711318 140187606065600 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:24,250 autoreload 711437 139722076361152 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:27,825 autoreload 711437 139722076361152 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:29,020 autoreload 711556 140703612445120 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:41,537 autoreload 711556 140703612445120 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:42,590 autoreload 711849 140236317172160 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:44,985 autoreload 711849 140236317172160 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:46,082 autoreload 711924 139707918774720 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:48,820 autoreload 711924 139707918774720 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:50,246 autoreload 712016 139917025812928 Watching for file changes with StatReloader
+INFO 2025-06-17 23:47:55,396 autoreload 712016 139917025812928 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:47:56,433 autoreload 712161 140229298516416 Watching for file changes with StatReloader
+INFO 2025-06-17 23:48:08,063 autoreload 712161 140229298516416 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:48:09,423 autoreload 712584 140240878490048 Watching for file changes with StatReloader
+INFO 2025-06-17 23:48:16,004 autoreload 712584 140240878490048 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:48:17,449 autoreload 712792 140548957909440 Watching for file changes with StatReloader
+INFO 2025-06-17 23:48:22,846 autoreload 712792 140548957909440 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:48:24,046 autoreload 712931 140715409355200 Watching for file changes with StatReloader
+INFO 2025-06-17 23:48:26,647 autoreload 712931 140715409355200 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:48:27,803 autoreload 713034 139635814040000 Watching for file changes with StatReloader
+INFO 2025-06-17 23:48:31,501 autoreload 713034 139635814040000 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:48:33,112 autoreload 713150 140699659428288 Watching for file changes with StatReloader
+INFO 2025-06-17 23:48:45,620 autoreload 713150 140699659428288 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-17 23:48:46,416 autoreload 713436 139715035595200 Watching for file changes with StatReloader
+INFO 2025-06-18 01:40:43,184 autoreload 713436 139715035595200 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-18 01:40:43,656 autoreload 865510 140298945909184 Watching for file changes with StatReloader
+WARNING 2025-06-18 01:41:49,901 log 865510 140298852234816 Bad Request: /api/upload/vehicle/
+WARNING 2025-06-18 01:41:49,902 basehttp 865510 140298852234816 "POST /api/upload/vehicle/ HTTP/1.1" 400 92
+INFO 2025-06-18 01:41:59,389 basehttp 865510 140298852234816 "POST /api/upload/vehicle/ HTTP/1.1" 201 1999
+INFO 2025-06-18 01:54:00,079 autoreload 887934 140344696566208 Watching for file changes with StatReloader
+WARNING 2025-06-18 01:54:05,788 log 887934 140344603702848 Unauthorized: /api/user/login/
+WARNING 2025-06-18 01:54:05,788 basehttp 887934 140344603702848 "POST /api/user/login/ HTTP/1.1" 401 34
+INFO 2025-06-18 01:54:15,098 basehttp 887934 140344593212992 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-06-18 01:54:15,129 basehttp 887934 140344593212992 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4185
+WARNING 2025-06-18 01:54:15,677 log 887934 140344593212992 Not Found: /favicon.ico
+WARNING 2025-06-18 01:54:15,677 basehttp 887934 140344593212992 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-18 01:54:27,634 basehttp 887934 140344593212992 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-06-18 01:54:27,670 basehttp 887934 140344593212992 "GET /admin/ HTTP/1.1" 200 10916
+INFO 2025-06-18 01:54:33,244 basehttp 887934 140344593212992 "GET /admin/rental/user/ HTTP/1.1" 200 14624
+INFO 2025-06-18 01:54:33,313 basehttp 887934 140344593212992 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-18 01:54:35,678 basehttp 887934 140344593212992 "GET /admin/rental/user/2/change/ HTTP/1.1" 200 21433
+INFO 2025-06-18 01:54:35,786 basehttp 887934 140344593212992 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-18 01:54:41,792 basehttp 887934 140344593212992 "POST /admin/rental/user/2/change/ HTTP/1.1" 302 0
+INFO 2025-06-18 01:54:41,830 basehttp 887934 140344593212992 "GET /admin/rental/user/ HTTP/1.1" 200 14829
+INFO 2025-06-18 01:54:41,907 basehttp 887934 140344593212992 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-18 01:54:45,433 basehttp 887934 140344603702848 "POST /api/user/login/ HTTP/1.1" 200 530
+INFO 2025-06-18 01:54:56,046 basehttp 887934 140344603702848 "POST /api/user/autoLogin/ HTTP/1.1" 200 488
+ERROR 2025-06-18 01:54:59,844 log 887934 140344603702848 Internal Server Error: /api/user/autoLogin/
+Traceback (most recent call last):
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2688, in to_python
+    return uuid.UUID(**{input_form: value})
+  File "/usr/lib/python3.10/uuid.py", line 177, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py", line 455, in post
+    user = User.objects.get(id=user_id, private_token=private_token)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1545, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1576, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/sql/query.py", line 1318, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2672, in get_prep_value
+    return self.to_python(value)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/db/models/fields/__init__.py", line 2690, in to_python
+    raise exceptions.ValidationError(
+django.core.exceptions.ValidationError: ['“96979473-3279-4383-ad37-8bcdb3a0c1e” is not a valid UUID.']
+ERROR 2025-06-18 01:54:59,846 basehttp 887934 140344603702848 "POST /api/user/autoLogin/ HTTP/1.1" 500 189441
+INFO 2025-06-18 01:55:19,953 autoreload 887934 140344696566208 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-18 01:55:20,464 autoreload 889520 140701840191936 Watching for file changes with StatReloader
+INFO 2025-06-18 01:55:21,820 autoreload 889520 140701840191936 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-18 01:55:22,192 autoreload 889560 140122421359040 Watching for file changes with StatReloader
+ERROR 2025-06-18 01:55:26,960 log 889560 140122328659520 Internal Server Error: /api/user/autoLogin/
+ERROR 2025-06-18 01:55:26,960 basehttp 889560 140122328659520 "POST /api/user/autoLogin/ HTTP/1.1" 500 40
+ERROR 2025-06-18 01:55:33,518 log 889560 140122328659520 Internal Server Error: /api/user/autoLogin/
+ERROR 2025-06-18 01:55:33,518 basehttp 889560 140122328659520 "POST /api/user/autoLogin/ HTTP/1.1" 500 40
+ERROR 2025-06-18 01:55:38,193 log 889560 140122328659520 Internal Server Error: /api/user/autoLogin/
+ERROR 2025-06-18 01:55:38,193 basehttp 889560 140122328659520 "POST /api/user/autoLogin/ HTTP/1.1" 500 40
+INFO 2025-06-18 01:55:42,517 basehttp 889560 140122328659520 "POST /api/user/autoLogin/ HTTP/1.1" 200 488

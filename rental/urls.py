@@ -16,6 +16,7 @@ urlpatterns = [
     # User Authentication Endpoints
     path('user/register/', UserRegisterView.as_view(), name='user-register'),
     path('user/login/', UserLoginView.as_view(), name='user-login'),
+    path('user/autoLogin/', UserAutoLoginView.as_view(), name='user-autologin'),
     path('user/addPhone/', UserAddPhoneView.as_view(), name='user-add-phone'),
     path('user/updateProfile/', UserUpdateProfileView.as_view(), name='user-update-profile'),
     path('user/deleteProfile/', UserDeleteView.as_view(), name='user-delete-profile'),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('user/resendOtp/', ResendOTPView.as_view(), name='resend-otp'),
     
     # Vehicle Search and Discovery Endpoints
+    path('upload/vehicle/', VehicleUploadView.as_view(), name='upload-vehicle'),
     path('vehicles/search/', VehicleSearchView.as_view(), name='vehicle-search'),
     path('vehicles/nearby/', NearbyVehiclesView.as_view(), name='nearby-vehicles'),
     path('vehicles/available/', AvailableVehiclesView.as_view(), name='available-vehicles'),

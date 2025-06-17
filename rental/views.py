@@ -22,8 +22,9 @@ from .serializers import (
     VehicleSerializer, VehiclePhotoSerializer, VehicleAvailabilitySerializer,
     ReviewSerializer, VehicleListSerializer
 )
-from .tasks import generate_and_send_otp, send_otp_sms
-
+from .tasks import *
+from django.db import transaction
+import json
 
 # Viewsets
 class LocationViewSet(viewsets.ModelViewSet):
@@ -438,6 +439,42 @@ class ResendOTPView(APIView):
                 'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
 
+class UserAutoLoginView(APIView):
+    """User auto-login view"""
+
+    def post(self, request):
+        user_id = request.data.get('user_id')
+        private_token = request.data.get('private_token')
+
+        if not all([user_id, private_token]):
+            return Response({
+                'error': 'user_id and private_token are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(id=user_id, private_token=private_token)
+            if not user.is_active:
+                return Response({
+                    'error': 'Account is deactivated'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+            if not user.email_verified:
+                return Response({
+                    'error': 'Account is not verified'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+
+            serializer = UserSerializer(user)
+            return Response({
+                'message': 'Auto-login successful',
+                'user': serializer.data
+            }, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({
+                'error': 'Invalid user_id or private_token'
+            }, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({
+                'error': 'An unexpected error occurred'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Vehicle Search and Discovery Views
@@ -603,4 +640,115 @@ class VehiclePhotoUploadView(APIView):
             'photos': uploaded_photos
         }, status=status.HTTP_201_CREATED)
 
+class VehicleUploadView(APIView):
+    def post(self, request):
+        data = request.data.copy()
+        
+        # Validate required fields
+        if 'owner_id' not in data:
+            return Response({
+                'error': 'owner_id is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        if "location" not in data:
+            return Response({
+                'error': 'location is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # For non-bicycle vehicles, documents are required
+        vehicle_type = data.get('vehicle_type', '')
+        if vehicle_type != 'bicycle':
+            required_docs = ['vehicle_rc', 'vehicle_insurance', 'vehicle_pollution_certificate']
+            missing_docs = [doc for doc in required_docs if doc not in request.FILES]
+            if missing_docs:
+                return Response({
+                    'error': f'The following documents are required: {", ".join(missing_docs)}'
+                }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            with transaction.atomic():
+                # Create location
+                location_data = data.pop('location')
+                if type(location_data) is list and len(location_data) >= 1:
+                    location_data = json.loads(location_data[0])
+                location_serializer = LocationSerializer(data=location_data)
+                if location_serializer.is_valid():
+                    location_instance = location_serializer.save()
+                    data['location_id'] = location_instance.id
+                else:
+                    return Response({
+                        'error': 'Location validation failed',
+                        'details': location_serializer.errors
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Create vehicle
+                vehicle_serializer = VehicleSerializer(data=data)
+                if vehicle_serializer.is_valid():
+                    vehicle = vehicle_serializer.save()
+                else:
+                    return Response({
+                        'error': 'Vehicle validation failed',
+                        'details': vehicle_serializer.errors
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Handle vehicle photos
+                photos_data = []
+                photo_files = request.FILES.getlist('photos')
+                if photo_files:
+                    for i, photo_file in enumerate(photo_files):
+                        # Create VehiclePhoto instance directly
+                        photo_instance = VehiclePhoto.objects.create(
+                            vehicle=vehicle,
+                            photo=photo_file,
+                            is_primary=i == 0  # First photo is primary
+                        )
+                        photos_data.append({
+                            'id': photo_instance.id,
+                            'photo': photo_instance.photo.url if photo_instance.photo else None,
+                            'is_primary': photo_instance.is_primary,
+                            'created_at': photo_instance.created_at
+                        })
+                
+                # Handle availability slots
+                availability_data = []
+                if 'availability_slots' in data:
+                    availability_slots = data.get('availability_slots', [])
+                    # Handle JSON string if sent as string
+                    if isinstance(availability_slots, str):
+                        try:
+                            availability_slots = json.loads(availability_slots)
+                        except json.JSONDecodeError:
+                            return Response({
+                                'error': 'Invalid JSON format for availability_slots'
+                            }, status=status.HTTP_400_BAD_REQUEST)
+                    
+                    for slot_data in availability_slots:
+                        slot_data['vehicle'] = vehicle.id
+                        availability_serializer = VehicleAvailabilitySerializer(data=slot_data)
+                        if availability_serializer.is_valid():
+                            availability_instance = availability_serializer.save()
+                            availability_data.append(availability_serializer.data)
+                        else:
+                            return Response({
+                                'error': 'Availability slot validation failed',
+                                'details': availability_serializer.errors
+                            }, status=status.HTTP_400_BAD_REQUEST)
+                verify_vehicle.delay(vehicle.id)  # Trigger vehicle verification task asynchronously
+                # Return success response with created data
+                response_data = {
+                    'message': 'Vehicle uploaded successfully',
+                    'vehicle_id': vehicle.id,
+                    'vehicle': VehicleSerializer(vehicle).data,
+                    'photos_uploaded': len(photos_data),
+                    'availability_slots_created': len(availability_data)
+                }
+                
+                return Response(response_data, status=status.HTTP_201_CREATED)
+                
+        except Exception as e:
+            return Response({
+                'error': 'An error occurred while uploading vehicle',
+                'details': str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
   
+

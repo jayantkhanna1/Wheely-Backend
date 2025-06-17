@@ -10,11 +10,14 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'phone', 'email_verified', 'phone_verified', 'is_active', 'created_at')
+    list_display = ('id', 'first_name', 'last_name', 'email', 'phone', 'email_verified', 'phone_verified', 'is_active', 'created_at')
     list_filter = ('email_verified', 'phone_verified', 'driving_license_verified', 'is_active', 'created_at')
-    search_fields = ('first_name', 'last_name', 'email', 'phone')
-    readonly_fields = ('private_token', 'created_at', 'updated_at')
+    search_fields = ('id', 'first_name', 'last_name', 'email', 'phone')
+    readonly_fields = ('id', 'private_token', 'created_at', 'updated_at')
     fieldsets = (
+        ('System Information', {
+            'fields': ('id', 'private_token', 'is_active', 'created_at', 'updated_at')
+        }),
         ('Personal Information', {
             'fields': ('first_name', 'last_name', 'email', 'phone', 'date_of_birth', 'location')
         }),
@@ -24,11 +27,16 @@ class UserAdmin(admin.ModelAdmin):
         ('Documents', {
             'fields': ('driving_license', 'driving_license_verified', 'profile_picture')
         }),
-        ('System', {
-            'fields': ('private_token', 'is_active', 'created_at', 'updated_at')
-        }),
     )
+    
+    # Optional: Make the list more user-friendly
+    list_display_links = ('id', 'first_name', 'last_name')
+    list_per_page = 25
+    
+    # Optional: Add ordering
+    ordering = ('-created_at',)
 
+    
 class VehiclePhotoInline(admin.TabularInline):
     model = VehiclePhoto
     extra = 1

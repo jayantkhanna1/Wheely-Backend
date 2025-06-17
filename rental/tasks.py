@@ -257,3 +257,27 @@ def send_review_notification(host_user_id, vehicle_name, rating, comment):
     except Exception as e:
         logger.error(f"Failed to send review notification: {str(e)}")
         return False
+    
+@shared_task
+def verify_vehicle(vehicle_id):
+    """Verify vehicle documents and update status"""
+    try:
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        
+        # Placeholder for actual verification logic
+        # For example, checking if all required documents are uploaded and valid
+        
+        if vehicle.vehicle_rc and vehicle.vehicle_insurance and vehicle.vehicle_pollution_certificate:
+            # vehicle.is_verified = True # paused temporarily for testing
+            print("Vehicle verification is paused temporarily for testing.")
+            vehicle.save()
+        else:
+            vehicle.is_verified = False
+            vehicle.save()
+        return True
+    except Vehicle.DoesNotExist:
+        logger.error(f"Vehicle with ID {vehicle_id} not found")
+        return False
+    except Exception as e:
+        logger.error(f"Failed to verify vehicle: {str(e)}")
+        return False

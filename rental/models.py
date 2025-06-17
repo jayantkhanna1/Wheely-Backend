@@ -56,24 +56,24 @@ class User(models.Model):
 class Vehicle(models.Model):
     """Vehicle model for rental vehicles"""
     VEHICLE_TYPES = [
-        ('4_wheeler', '4 Wheeler'),
-        ('2_wheeler', '2 Wheeler'),
-        ('bicycle', 'Bicycle'),
+        ('4_wheeler', '4_wheeler'),
+        ('2_wheeler', '2_wheeler'),
+        ('bicycle', 'bicycle'),
     ]
     
     TRANSMISSION_TYPES = [
-        ('manual', 'Manual'),
-        ('automatic', 'Automatic'),
-        ('semi_automatic', 'Semi Automatic'),
+        ('manual', 'manual'),
+        ('automatic', 'automatic'),
+        ('semi_automatic', 'semi_automatic'),
     ]
     
     FUEL_TYPES = [
-        ('petrol', 'Petrol'),
-        ('diesel', 'Diesel'),
-        ('electric', 'Electric'),
-        ('hybrid', 'Hybrid'),
-        ('cng', 'CNG'),
-        ('none', 'None'),  # For bicycles
+        ('petrol', 'petrol'),
+        ('diesel', 'diesel'),
+        ('electric', 'electric'),
+        ('hybrid', 'hybrid'),
+        ('cng', 'cng'),
+        ('none', 'none'),  # For bicycles
     ]
 
     vehicle_name = models.CharField(max_length=200)
