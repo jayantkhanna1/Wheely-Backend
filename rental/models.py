@@ -64,7 +64,7 @@ class Vehicle(models.Model):
     TRANSMISSION_TYPES = [
         ('manual', 'manual'),
         ('automatic', 'automatic'),
-        ('semi_automatic', 'semi_automatic'),
+        ('cvt', 'cvt'),
     ]
     
     FUEL_TYPES = [
@@ -74,6 +74,18 @@ class Vehicle(models.Model):
         ('hybrid', 'hybrid'),
         ('cng', 'cng'),
         ('none', 'none'),  # For bicycles
+    ]
+
+    CATEGORY_CHOICES = [
+        ('suv', 'SUV'),
+        ('sedan', 'Sedan'),
+        ('hatchback', 'Hatchback'),
+        ('mpv', 'MPV'),
+        ('coupe', 'Coupe'),
+        ('convertible', 'Convertible'),
+        ('pickup', 'Pickup'),
+        ('van', 'Van'),
+        ('bicycle', 'Bicycle'),
     ]
 
     vehicle_name = models.CharField(max_length=200)
@@ -88,6 +100,8 @@ class Vehicle(models.Model):
     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    license_plate = models.CharField(max_length=20, unique=True, help_text="Vehicle license plate number")
+    category = models.CharField(max_length=50, blank=True, help_text="Category of the vehicle (e.g., SUV, Sedan, etc.)")
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vehicles')
     
     # Documents - not required for bicycles

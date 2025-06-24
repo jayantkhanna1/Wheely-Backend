@@ -357,7 +357,8 @@ class VerifyEmailView(APIView):
                 user.otp = ''  # Clear OTP after verification
                 user.save()
                 return Response({
-                    'message': 'Email verified successfully'
+                    'message': 'Email verified successfully',
+                    'user' : UserSerializer(user).data
                 }, status=status.HTTP_200_OK)
             else:
                 return Response({

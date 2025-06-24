@@ -1543,3 +1543,231 @@ ERROR 2025-06-18 01:55:33,518 basehttp 889560 140122328659520 "POST /api/user/au
 ERROR 2025-06-18 01:55:38,193 log 889560 140122328659520 Internal Server Error: /api/user/autoLogin/
 ERROR 2025-06-18 01:55:38,193 basehttp 889560 140122328659520 "POST /api/user/autoLogin/ HTTP/1.1" 500 40
 INFO 2025-06-18 01:55:42,517 basehttp 889560 140122328659520 "POST /api/user/autoLogin/ HTTP/1.1" 200 488
+INFO 2025-06-18 22:06:26,912 autoreload 435451 140451799499200 Watching for file changes with StatReloader
+INFO 2025-06-18 22:27:01,275 autoreload 459278 140253838406080 Watching for file changes with StatReloader
+ERROR 2025-06-18 23:30:16,529 exception 459278 140253744592448 Invalid HTTP_HOST header: '192.168.29.118:8000'. You may need to add '192.168.29.118' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.29.118:8000'. You may need to add '192.168.29.118' to ALLOWED_HOSTS.
+WARNING 2025-06-18 23:30:16,607 log 459278 140253744592448 Bad Request: /api/user/login/
+WARNING 2025-06-18 23:30:16,608 basehttp 459278 140253744592448 "POST /api/user/login/ HTTP/1.1" 400 24093
+INFO 2025-06-18 23:30:58,011 autoreload 608952 139671276618176 Watching for file changes with StatReloader
+WARNING 2025-06-18 23:31:03,663 log 608952 139671183029824 Not Found: /admimn
+WARNING 2025-06-18 23:31:03,664 basehttp 608952 139671183029824 "GET /admimn HTTP/1.1" 404 2325
+WARNING 2025-06-18 23:31:06,642 log 608952 139671183029824 Not Found: /favicon.ico
+WARNING 2025-06-18 23:31:06,643 basehttp 608952 139671183029824 "GET /favicon.ico HTTP/1.1" 404 2340
+INFO 2025-06-18 23:31:09,496 basehttp 608952 139671183029824 "GET /admin/ HTTP/1.1" 200 10966
+INFO 2025-06-18 23:31:09,615 basehttp 608952 139671183029824 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,627 basehttp 608952 139671183029824 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,639 basehttp 608952 139671164147264 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,654 basehttp 608952 139671155754560 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,673 basehttp 608952 139671172539968 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,676 basehttp 608952 139671147361856 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,689 basehttp 608952 139671138969152 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,736 basehttp 608952 139671138969152 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,742 basehttp 608952 139671138969152 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:09,766 basehttp 608952 139671147361856 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:12,716 basehttp 608952 139671138969152 "GET /admin/rental/user/ HTTP/1.1" 200 14624
+INFO 2025-06-18 23:31:12,982 basehttp 608952 139671172539968 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:12,983 basehttp 608952 139671155754560 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:12,986 basehttp 608952 139671164147264 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,002 basehttp 608952 139671138969152 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-06-18 23:31:13,005 basehttp 608952 139671147361856 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-06-18 23:31:13,031 basehttp 608952 139671183029824 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-18 23:31:13,035 basehttp 608952 139671172539968 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,040 basehttp 608952 139671155754560 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,057 basehttp 608952 139671164147264 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,082 basehttp 608952 139671172539968 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,113 basehttp 608952 139671147361856 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,116 basehttp 608952 139671138969152 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,191 basehttp 608952 139671138969152 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,223 basehttp 608952 139671147361856 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:31:13,229 basehttp 608952 139671147361856 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-06-18 23:32:31,250 basehttp 608952 139671164147264 "POST /api/user/login/ HTTP/1.1" 200 530
+INFO 2025-06-18 23:33:08,537 basehttp 608952 139671164147264 - Broken pipe from ('192.168.29.242', 48556)
+INFO 2025-06-19 15:20:07,832 autoreload 845546 140456232448448 Watching for file changes with StatReloader
+WARNING 2025-06-19 15:32:55,967 log 845546 140456138634816 Not Found: /api/user/login/
+WARNING 2025-06-19 15:32:55,968 basehttp 845546 140456138634816 "POST /api/user/login/ HTTP/1.1" 404 52
+INFO 2025-06-19 21:58:16,115 basehttp 845546 140456138634816 "GET /admin/ HTTP/1.1" 200 10966
+INFO 2025-06-19 21:58:16,169 basehttp 845546 140456138634816 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,172 basehttp 845546 140456138634816 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,175 basehttp 845546 140456126047808 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,178 basehttp 845546 140455899559488 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,179 basehttp 845546 140456117655104 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,185 basehttp 845546 140455899559488 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,186 basehttp 845546 140456117655104 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,240 basehttp 845546 140455899559488 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,241 basehttp 845546 140456117655104 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:16,242 basehttp 845546 140456138634816 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,096 basehttp 845546 140455899559488 "GET /admin/rental/user/ HTTP/1.1" 200 14624
+INFO 2025-06-19 21:58:26,152 basehttp 845546 140455899559488 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,177 basehttp 845546 140456126047808 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,186 basehttp 845546 140456126047808 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,186 basehttp 845546 140455882774080 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,186 basehttp 845546 140455891166784 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,201 basehttp 845546 140455899559488 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 21:58:26,201 basehttp 845546 140455882774080 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,205 basehttp 845546 140456117655104 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-06-19 21:58:26,206 basehttp 845546 140455891166784 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,207 basehttp 845546 140456138634816 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-06-19 21:58:26,216 basehttp 845546 140456138634816 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,234 basehttp 845546 140456126047808 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,271 basehttp 845546 140456138634816 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,299 basehttp 845546 140456126047808 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:26,302 basehttp 845546 140456117655104 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,270 basehttp 845546 140456117655104 "GET /admin/rental/user/2/change/ HTTP/1.1" 200 21441
+INFO 2025-06-19 21:58:27,317 basehttp 845546 140456126047808 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,318 basehttp 845546 140456138634816 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,318 basehttp 845546 140455891166784 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,318 basehttp 845546 140455899559488 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,319 basehttp 845546 140455882774080 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,335 basehttp 845546 140456117655104 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 21:58:27,340 basehttp 845546 140456117655104 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,344 basehttp 845546 140455882774080 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:27,681 basehttp 845546 140455882774080 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-06-19 21:58:29,280 basehttp 845546 140455882774080 "GET /admin/rental/user/ HTTP/1.1" 200 14624
+INFO 2025-06-19 21:59:29,039 autoreload 845546 140456232448448 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-19 21:59:30,791 autoreload 1218832 140430342607296 Watching for file changes with StatReloader
+INFO 2025-06-19 21:59:58,767 basehttp 1218832 140430249293376 "POST /api/user/register/ HTTP/1.1" 201 74
+INFO 2025-06-19 21:59:59,442 tasks 436497 140358413447616 OTP generated and sent for user ID: 3
+ERROR 2025-06-19 22:00:01,804 tasks 436499 140358413447616 Failed to send OTP email to jayantkhanna3105@gmail.com: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2365dea8d2dsm122082105ad.160 - gsmtp')
+INFO 2025-06-19 22:00:11,005 basehttp 1218832 140430236706368 "GET /admin/rental/user/ HTTP/1.1" 200 15402
+INFO 2025-06-19 22:00:11,049 basehttp 1218832 140430226216512 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-06-19 22:00:11,072 basehttp 1218832 140430236706368 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 22:00:11,841 basehttp 1218832 140430236706368 "GET /admin/rental/user/3/change/ HTTP/1.1" 200 21400
+INFO 2025-06-19 22:00:11,913 basehttp 1218832 140430236706368 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 22:00:18,443 basehttp 1218832 140430249293376 "POST /api/user/verifyEmail/ HTTP/1.1" 200 487
+INFO 2025-06-19 22:01:15,773 autoreload 1218832 140430342607296 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/views.py changed, reloading.
+INFO 2025-06-19 22:01:16,832 autoreload 1220982 140354289279424 Watching for file changes with StatReloader
+INFO 2025-06-19 22:01:19,642 basehttp 1220982 140354196076096 "GET /admin/rental/user/3/delete/ HTTP/1.1" 200 8930
+INFO 2025-06-19 22:01:19,732 basehttp 1220982 140354196076096 "GET /static/admin/js/cancel.js HTTP/1.1" 304 0
+INFO 2025-06-19 22:01:20,796 basehttp 1220982 140354196076096 "POST /admin/rental/user/3/delete/ HTTP/1.1" 302 0
+INFO 2025-06-19 22:01:20,940 basehttp 1220982 140354196076096 "GET /admin/rental/user/ HTTP/1.1" 200 14784
+INFO 2025-06-19 22:01:21,133 basehttp 1220982 140354196076096 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 22:01:41,357 basehttp 1220982 140354184537664 "POST /api/user/register/ HTTP/1.1" 201 74
+INFO 2025-06-19 22:01:41,375 tasks 436497 140358413447616 OTP generated and sent for user ID: 4
+ERROR 2025-06-19 22:01:43,548 tasks 436499 140358413447616 Failed to send OTP email to jayantkhanna3105@gmail.com: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2369e10b53csm43880445ad.164 - gsmtp')
+INFO 2025-06-19 22:01:44,822 basehttp 1220982 140354196076096 "GET /admin/rental/user/ HTTP/1.1" 200 15403
+INFO 2025-06-19 22:01:44,864 basehttp 1220982 140354196076096 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 22:01:47,080 basehttp 1220982 140354196076096 "GET /admin/rental/user/4/change/ HTTP/1.1" 200 21402
+INFO 2025-06-19 22:01:47,142 basehttp 1220982 140354196076096 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-06-19 22:01:53,072 basehttp 1220982 140354184537664 "POST /api/user/verifyEmail/ HTTP/1.1" 200 487
+INFO 2025-06-19 22:02:18,926 basehttp 1220982 140354184537664 - Broken pipe from ('192.168.29.242', 37022)
+INFO 2025-06-19 22:02:29,700 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:14:20,483 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:14:41,307 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:14:58,399 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:19:58,640 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:20:02,720 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:24:51,974 basehttp 1220982 140354196076096 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:28:24,542 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:30:09,077 basehttp 1220982 140354196076096 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:31:22,940 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:33:27,657 basehttp 1220982 140354184537664 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:33:55,664 basehttp 1220982 140353961195072 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-19 22:35:51,367 basehttp 1220982 140353961195072 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-19 22:37:25,355 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:37:43,071 basehttp 1220982 140354171950656 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-19 22:40:04,672 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 22:40:14,569 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:23:49,456 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:26:09,804 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:26:17,768 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:29:27,544 basehttp 1220982 140353961195072 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:32:12,006 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:36:50,850 basehttp 1220982 140353961195072 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:39:46,652 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:42:24,476 basehttp 1220982 140354171950656 - Broken pipe from ('192.168.29.242', 39556)
+INFO 2025-06-19 23:48:36,271 basehttp 1220982 140354171950656 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:49:20,822 basehttp 1220982 140353961195072 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-19 23:49:48,331 basehttp 1220982 140353961195072 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-19 23:50:28,445 basehttp 1220982 140353961195072 - Broken pipe from ('192.168.29.242', 37410)
+INFO 2025-06-19 23:50:28,447 basehttp 1220982 140354171950656 - Broken pipe from ('192.168.29.242', 45964)
+INFO 2025-06-20 00:19:20,851 basehttp 1220982 140353961195072 "OPTIONS /api/user/login/ HTTP/1.1" 200 0
+INFO 2025-06-20 00:19:21,341 basehttp 1220982 140353961195072 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-20 00:20:10,334 basehttp 1220982 140353961195072 "OPTIONS /api/user/autoLogin/ HTTP/1.1" 200 0
+INFO 2025-06-20 00:20:10,410 basehttp 1220982 140353961195072 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:15:05,775 autoreload 2140801 140337435668928 Watching for file changes with StatReloader
+ERROR 2025-06-23 11:17:51,515 exception 2140801 140337342314048 Invalid HTTP_HOST header: '192.168.0.104:8000'. You may need to add '192.168.0.104' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/jayant/jayant/Projects/Wheely/ve/lib/python3.10/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.0.104:8000'. You may need to add '192.168.0.104' to ALLOWED_HOSTS.
+WARNING 2025-06-23 11:17:51,540 log 2140801 140337342314048 Bad Request: /api/user/login/
+WARNING 2025-06-23 11:17:51,541 basehttp 2140801 140337342314048 "POST /api/user/login/ HTTP/1.1" 400 24119
+INFO 2025-06-23 11:18:22,658 autoreload 2145219 139785514865088 Watching for file changes with StatReloader
+INFO 2025-06-23 11:18:25,424 basehttp 2145219 139785347790400 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-23 11:20:16,043 basehttp 2145219 139785347790400 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:20:23,391 basehttp 2145219 139785347790400 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:20:30,949 basehttp 2145219 139785347790400 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:20:46,488 basehttp 2145219 139785347790400 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:20:57,503 basehttp 2145219 139785347790400 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:22:32,840 basehttp 2145219 139785347790400 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:23:30,753 basehttp 2145219 139785339397696 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:25:24,743 basehttp 2145219 139785331004992 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:25:46,241 basehttp 2145219 139785331004992 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 11:29:15,147 basehttp 2145219 139785331004992 - Broken pipe from ('192.168.0.102', 40022)
+INFO 2025-06-23 13:16:37,269 basehttp 2145219 139785331004992 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-23 13:18:48,943 basehttp 2145219 139785331004992 - Broken pipe from ('192.168.0.102', 44772)
+INFO 2025-06-24 00:45:18,689 autoreload 2957413 139996557611456 Watching for file changes with StatReloader
+INFO 2025-06-24 00:45:46,007 basehttp 2957413 139996395730496 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:47:32,571 basehttp 2957413 139996395730496 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:47:47,429 basehttp 2957413 139996395730496 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:48:47,125 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:49:04,297 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:50:44,472 basehttp 2957413 139996376847936 "OPTIONS /api/user/login/ HTTP/1.1" 200 0
+INFO 2025-06-24 00:50:44,672 basehttp 2957413 139996376847936 "POST /api/user/login/ HTTP/1.1" 200 523
+INFO 2025-06-24 00:55:39,477 basehttp 2957413 139996385240640 "OPTIONS /api/user/autoLogin/ HTTP/1.1" 200 0
+INFO 2025-06-24 00:55:39,500 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:55:53,586 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:56:05,220 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:56:11,740 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:56:27,860 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:56:29,152 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 00:56:56,154 basehttp 2957413 139996385240640 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 01:05:16,941 autoreload 2957413 139996557611456 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:17,684 autoreload 2979709 140344981922240 Watching for file changes with StatReloader
+INFO 2025-06-24 01:05:19,760 autoreload 2979709 140344981922240 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:20,987 autoreload 2979771 139706152653248 Watching for file changes with StatReloader
+INFO 2025-06-24 01:05:22,221 autoreload 2979771 139706152653248 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:23,070 autoreload 2979805 140508682453440 Watching for file changes with StatReloader
+INFO 2025-06-24 01:05:25,171 autoreload 2979805 140508682453440 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:26,351 autoreload 2979881 139648803918272 Watching for file changes with StatReloader
+INFO 2025-06-24 01:05:28,387 autoreload 2979881 139648803918272 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:29,104 autoreload 2979942 140618221248960 Watching for file changes with StatReloader
+INFO 2025-06-24 01:05:40,113 autoreload 2979942 140618221248960 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:40,687 autoreload 2980132 140360566084032 Watching for file changes with StatReloader
+INFO 2025-06-24 01:05:51,906 autoreload 2980132 140360566084032 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:05:52,316 autoreload 2980319 140537626862016 Watching for file changes with StatReloader
+INFO 2025-06-24 01:06:02,537 autoreload 2980319 140537626862016 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:06:03,151 autoreload 2980513 140309883474368 Watching for file changes with StatReloader
+INFO 2025-06-24 01:06:05,348 autoreload 2980513 140309883474368 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:06:06,018 autoreload 2980579 139838594335168 Watching for file changes with StatReloader
+INFO 2025-06-24 01:06:07,218 autoreload 2980579 139838594335168 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:06:07,841 autoreload 2980687 139709697700288 Watching for file changes with StatReloader
+INFO 2025-06-24 01:06:15,073 autoreload 2980687 139709697700288 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:06:15,642 autoreload 2980907 140476673761728 Watching for file changes with StatReloader
+INFO 2025-06-24 01:06:22,839 autoreload 2980907 140476673761728 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:06:23,320 autoreload 2981042 139976837837248 Watching for file changes with StatReloader
+INFO 2025-06-24 01:06:25,561 autoreload 2981042 139976837837248 /home/jayant/jayant/Projects/Wheely/Wheely-Backend/rental/models.py changed, reloading.
+INFO 2025-06-24 01:06:26,204 autoreload 2981120 140610871497152 Watching for file changes with StatReloader
+INFO 2025-06-24 01:08:38,664 basehttp 2981120 140610710271552 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 01:08:41,640 basehttp 2981120 140610710271552 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 01:08:46,152 basehttp 2981120 140610710271552 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 01:09:44,352 basehttp 2981120 140610710271552 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 01:12:21,836 basehttp 2981120 140610710271552 - Broken pipe from ('192.168.0.102', 47934)
+INFO 2025-06-24 01:13:21,911 basehttp 2981120 140610710271552 "POST /api/user/autoLogin/ HTTP/1.1" 200 481
+INFO 2025-06-24 01:15:31,489 basehttp 2981120 140610710271552 - Broken pipe from ('192.168.0.102', 46776)
