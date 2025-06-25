@@ -13,8 +13,6 @@ class Location(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100, default='India')
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
     google_map_location = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -58,7 +56,8 @@ class Vehicle(models.Model):
     VEHICLE_TYPES = [
         ('4_wheeler', '4_wheeler'),
         ('2_wheeler', '2_wheeler'),
-        ('bicycle', 'bicycle'),
+        ('Bicycle', 'Bicycle'),
+        ('Other', 'Other'),
     ]
     
     TRANSMISSION_TYPES = [
@@ -77,15 +76,14 @@ class Vehicle(models.Model):
     ]
 
     CATEGORY_CHOICES = [
-        ('suv', 'SUV'),
-        ('sedan', 'Sedan'),
-        ('hatchback', 'Hatchback'),
-        ('mpv', 'MPV'),
-        ('coupe', 'Coupe'),
-        ('convertible', 'Convertible'),
-        ('pickup', 'Pickup'),
-        ('van', 'Van'),
-        ('bicycle', 'Bicycle'),
+        ('SUV', 'SUV'),
+        ('Sedan', 'Sedan'),
+        ('Hatchback', 'Hatchback'),
+        ('MUV', 'MUV'),
+        ('Luxury', 'Luxury'),
+        ('Sports', 'Sports'),
+        ('Other', 'Other'),
+        ('Bicycle', 'Bicycle'),
     ]
 
     vehicle_name = models.CharField(max_length=200)
@@ -100,8 +98,9 @@ class Vehicle(models.Model):
     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    license_plate = models.CharField(max_length=20, unique=True, help_text="Vehicle license plate number")
-    category = models.CharField(max_length=50, blank=True, help_text="Category of the vehicle (e.g., SUV, Sedan, etc.)")
+    license_plate = models.CharField(max_length=20, help_text="Vehicle license plate number")
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='sedan') 
+    features = models.JSONField(default=list, blank=True, help_text="Additional features of the vehicle")  
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vehicles')
     
     # Documents - not required for bicycles
@@ -112,7 +111,6 @@ class Vehicle(models.Model):
     # Status and availability
     is_available = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
-    mileage = models.FloatField(null=True, blank=True, help_text="Km per liter or km per charge")
     
     # Ratings and bookings
     rating = models.FloatField(default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])

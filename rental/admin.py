@@ -57,7 +57,7 @@ class VehicleAdmin(admin.ModelAdmin):
             'fields': ('vehicle_name', 'vehicle_brand', 'vehicle_model', 'vehicle_color', 'vehicle_year', 'vehicle_type')
         }),
         ('Specifications', {
-            'fields': ('transmission_type', 'fuel_type', 'seating_capacity', 'mileage')
+            'fields': ('transmission_type', 'fuel_type', 'seating_capacity', 'features')
         }),
         ('Pricing & Location', {
             'fields': ('price_per_hour', 'price_per_day', 'location', 'owner')

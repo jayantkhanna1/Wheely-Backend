@@ -527,49 +527,6 @@ class VehicleSearchView(APIView):
         serializer = VehicleListSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
-class NearbyVehiclesView(APIView):
-    """Find vehicles near a location"""
-    
-    def get(self, request):
-        latitude = request.GET.get('latitude')
-        longitude = request.GET.get('longitude')
-        radius = request.GET.get('radius', 10)  # Default 10km radius
-        
-        if not latitude or not longitude:
-            return Response({
-                'error': 'latitude and longitude are required'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            user_location = (float(latitude), float(longitude))
-            radius = float(radius)
-        except ValueError:
-            return Response({
-                'error': 'Invalid latitude, longitude, or radius'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        vehicles = Vehicle.objects.filter(
-            is_available=True, 
-            is_verified=True,
-            location__latitude__isnull=False,
-            location__longitude__isnull=False
-        )
-        
-        nearby_vehicles = []
-        for vehicle in vehicles:
-            vehicle_location = (vehicle.location.latitude, vehicle.location.longitude)
-            distance = geodesic(user_location, vehicle_location).kilometers
-            
-            if distance <= radius:
-                vehicle_data = VehicleListSerializer(vehicle, context={'request': request}).data
-                vehicle_data['distance'] = round(distance, 2)
-                nearby_vehicles.append(vehicle_data)
-        
-        # Sort by distance
-        nearby_vehicles.sort(key=lambda x: x['distance'])
-        
-        return Response(nearby_vehicles)
-
 class AvailableVehiclesView(APIView):
     """Get available vehicles for specific dates"""
     
@@ -644,13 +601,11 @@ class VehiclePhotoUploadView(APIView):
 class VehicleUploadView(APIView):
     def post(self, request):
         data = request.data.copy()
-        
         # Validate required fields
         if 'owner_id' not in data:
             return Response({
                 'error': 'owner_id is required'
             }, status=status.HTTP_400_BAD_REQUEST)
-        
         if "location" not in data:
             return Response({
                 'error': 'location is required'
@@ -658,25 +613,51 @@ class VehicleUploadView(APIView):
         
         # For non-bicycle vehicles, documents are required
         vehicle_type = data.get('vehicle_type', '')
+        print(vehicle_type)
         if vehicle_type != 'bicycle':
+            # Check for both FILES and data fields (for JSON file data)
             required_docs = ['vehicle_rc', 'vehicle_insurance', 'vehicle_pollution_certificate']
-            missing_docs = [doc for doc in required_docs if doc not in request.FILES]
+            missing_docs = []
+            
+            for doc in required_docs:
+                # Check if document exists in either FILES or data
+                if doc not in request.FILES and doc not in data:
+                    missing_docs.append(doc)
+            
             if missing_docs:
+                print(f"Missing required documents: {', '.join(missing_docs)}")
                 return Response({
                     'error': f'The following documents are required: {", ".join(missing_docs)}'
                 }, status=status.HTTP_400_BAD_REQUEST)
-        
         try:
             with transaction.atomic():
                 # Create location
                 location_data = data.pop('location')
-                if type(location_data) is list and len(location_data) >= 1:
-                    location_data = json.loads(location_data[0])
+                
+                # Handle location data parsing
+                if isinstance(location_data, str):
+                    try:
+                        location_data = json.loads(location_data)
+                    except json.JSONDecodeError:
+                        print("Invalid JSON format for location")
+                        return Response({
+                            'error': 'Invalid JSON format for location'
+                        }, status=status.HTTP_400_BAD_REQUEST)
+                elif isinstance(location_data, list) and len(location_data) >= 1:
+                    try:
+                        location_data = json.loads(location_data[0])
+                    except (json.JSONDecodeError, IndexError):
+                        print("Invalid location data format")
+                        return Response({
+                            'error': 'Invalid location data format'
+                        }, status=status.HTTP_400_BAD_REQUEST)
+                
                 location_serializer = LocationSerializer(data=location_data)
                 if location_serializer.is_valid():
                     location_instance = location_serializer.save()
                     data['location_id'] = location_instance.id
                 else:
+                    print("Location validation failed:", location_serializer.errors)
                     return Response({
                         'error': 'Location validation failed',
                         'details': location_serializer.errors
@@ -687,6 +668,7 @@ class VehicleUploadView(APIView):
                 if vehicle_serializer.is_valid():
                     vehicle = vehicle_serializer.save()
                 else:
+                    print("Vehicle validation failed:", vehicle_serializer.errors)
                     return Response({
                         'error': 'Vehicle validation failed',
                         'details': vehicle_serializer.errors
@@ -694,14 +676,15 @@ class VehicleUploadView(APIView):
                 
                 # Handle vehicle photos
                 photos_data = []
+                
+                # Check for photos in FILES first
                 photo_files = request.FILES.getlist('photos')
                 if photo_files:
                     for i, photo_file in enumerate(photo_files):
-                        # Create VehiclePhoto instance directly
                         photo_instance = VehiclePhoto.objects.create(
                             vehicle=vehicle,
                             photo=photo_file,
-                            is_primary=i == 0  # First photo is primary
+                            is_primary=i == 0
                         )
                         photos_data.append({
                             'id': photo_instance.id,
@@ -709,32 +692,58 @@ class VehicleUploadView(APIView):
                             'is_primary': photo_instance.is_primary,
                             'created_at': photo_instance.created_at
                         })
+                else:
+                    # Handle photos from data (JSON format from mobile)
+                    photos_json = data.getlist('photos') if hasattr(data, 'getlist') else []
+                    for i, photo_json in enumerate(photos_json):
+                        try:
+                            if isinstance(photo_json, str):
+                                photo_info = json.loads(photo_json)
+                            else:
+                                photo_info = photo_json
+                            
+                            # Here you would handle the photo_info which contains uri, type, name
+                            # For now, we'll skip actual file creation since we need the actual file content
+                            print(f"Photo info received: {photo_info}")
+                            # You might want to download from URI or handle differently based on your setup
+                            
+                        except (json.JSONDecodeError, KeyError) as e:
+                            print(f"Error processing photo {i}: {str(e)}")
+                            continue
                 
                 # Handle availability slots
                 availability_data = []
                 if 'availability_slots' in data:
                     availability_slots = data.get('availability_slots', [])
+                    
                     # Handle JSON string if sent as string
                     if isinstance(availability_slots, str):
                         try:
                             availability_slots = json.loads(availability_slots)
                         except json.JSONDecodeError:
+                            print("Invalid JSON format for availability_slots:", availability_slots)
                             return Response({
                                 'error': 'Invalid JSON format for availability_slots'
                             }, status=status.HTTP_400_BAD_REQUEST)
                     
-                    for slot_data in availability_slots:
-                        slot_data['vehicle'] = vehicle.id
-                        availability_serializer = VehicleAvailabilitySerializer(data=slot_data)
-                        if availability_serializer.is_valid():
-                            availability_instance = availability_serializer.save()
-                            availability_data.append(availability_serializer.data)
-                        else:
-                            return Response({
-                                'error': 'Availability slot validation failed',
-                                'details': availability_serializer.errors
-                            }, status=status.HTTP_400_BAD_REQUEST)
-                verify_vehicle.delay(vehicle.id)  # Trigger vehicle verification task asynchronously
+                    # Handle list format
+                    if isinstance(availability_slots, list):
+                        for slot_data in availability_slots:
+                            slot_data['vehicle'] = vehicle.id
+                            availability_serializer = VehicleAvailabilitySerializer(data=slot_data)
+                            if availability_serializer.is_valid():
+                                availability_instance = availability_serializer.save()
+                                availability_data.append(availability_serializer.data)
+                            else:
+                                print("Availability slot validation failed:", availability_serializer.errors)
+                                return Response({
+                                    'error': 'Availability slot validation failed',
+                                    'details': availability_serializer.errors
+                                }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Trigger vehicle verification task asynchronously
+                verify_vehicle.delay(vehicle.id)
+                
                 # Return success response with created data
                 response_data = {
                     'message': 'Vehicle uploaded successfully',
@@ -747,9 +756,9 @@ class VehicleUploadView(APIView):
                 return Response(response_data, status=status.HTTP_201_CREATED)
                 
         except Exception as e:
+            print("An error occurred while uploading vehicle:", str(e))
             return Response({
                 'error': 'An error occurred while uploading vehicle',
                 'details': str(e)
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-  
 

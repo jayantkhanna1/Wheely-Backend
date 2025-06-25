@@ -60,8 +60,8 @@ class VehicleSerializer(serializers.ModelSerializer):
             'vehicle_year', 'vehicle_type', 'transmission_type', 'fuel_type',
             'seating_capacity', 'price_per_hour', 'price_per_day', 'location', 'location_id',
             'owner', 'owner_id', 'vehicle_rc', 'vehicle_insurance', 'vehicle_pollution_certificate',
-            'is_available', 'is_verified', 'mileage', 'rating', 'total_bookings',
-            'photos', 'availability_slots', 'created_at', 'updated_at'
+            'is_available', 'is_verified', 'rating', 'total_bookings',
+            'photos', 'availability_slots', 'created_at', 'updated_at', 'category', 'features', 'license_plate'
         ]
         read_only_fields = ['rating', 'total_bookings', 'created_at', 'updated_at']
 
