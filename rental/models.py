@@ -98,7 +98,7 @@ class Vehicle(models.Model):
     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    license_plate = models.CharField(max_length=20, help_text="Vehicle license plate number")
+    license_plate = models.CharField(max_length=20, help_text="Vehicle license plate number", null=True, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='sedan') 
     features = models.JSONField(default=list, blank=True, help_text="Additional features of the vehicle")  
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vehicles')
@@ -171,3 +171,25 @@ class Review(models.Model):
     class Meta:
         ordering = ['-created_at']
         unique_together = ['vehicle', 'user']  # One review per user per vehicle
+
+class Ride(models.Model):
+    """Model for tracking rides"""
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='rides')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rides')
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True, blank=True)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status  = models.CharField(max_length=20, choices=[
+        ('booked', 'Booked'),
+        ('in_progress', 'In Progress'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled')
+    ], default='booked')
+
+    def __str__(self):
+        return f"Ride by {self.user.first_name} in {self.vehicle.vehicle_name} from {self.start_location.city} to {self.end_location.city}"
+    
+    class Meta:
+        ordering = ['-created_at']       

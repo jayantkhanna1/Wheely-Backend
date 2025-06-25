@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Location, User, Vehicle, VehiclePhoto, VehicleAvailability, Review
+from .models import Location, User, Vehicle, VehiclePhoto, VehicleAvailability, Review, Ride
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -85,6 +85,20 @@ class UserListSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'email_verified', 'phone_verified']
 
+class RideSerializer(serializers.ModelSerializer):
+    vehicle = VehicleSerializer(read_only=True)
+    vehicle_id = serializers.IntegerField(write_only=True)
+    user = UserSerializer(read_only=True)
+    user_id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = Ride
+        fields = [
+            'id', 'vehicle', 'vehicle_id', 'user', 'user_id',
+            'start_time', 'end_time', 'total_cost', 'status', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['created_at', 'updated_at']
+    
 
 class VehicleListSerializer(serializers.ModelSerializer):
     location = LocationSerializer(read_only=True)

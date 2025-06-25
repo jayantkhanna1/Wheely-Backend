@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Location, User, Vehicle, VehiclePhoto, VehicleAvailability, Review
+from .models import Location, User, Vehicle, VehiclePhoto, VehicleAvailability, Review, Ride
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -85,6 +85,21 @@ class VehicleAvailabilityAdmin(admin.ModelAdmin):
     list_filter = ('is_available', 'start_date', 'created_at')
     search_fields = ('vehicle__vehicle_name', 'vehicle__vehicle_brand')
     date_hierarchy = 'start_date'
+
+@admin.register(Ride)
+class RideAdmin(admin.ModelAdmin):
+    list_display = ('user', 'vehicle', 'start_time', 'end_time', 'total_cost', 'status', 'created_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('user__first_name', 'user__last_name', 'vehicle__vehicle_name')
+    readonly_fields = ('created_at', 'updated_at')
+    fieldsets = (
+        ('Ride Information', {
+            'fields': ('user', 'vehicle', 'start_time', 'end_time', 'total_cost')
+        }),
+        ('Status & Timestamps', {
+            'fields': ('status', 'created_at', 'updated_at')
+        }),
+    )
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):

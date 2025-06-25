@@ -15,12 +15,12 @@ from datetime import datetime, timedelta
 
 from .models import (
     Location, User, Vehicle, VehiclePhoto, 
-    VehicleAvailability, Review
+    VehicleAvailability, Review, Ride
 )
 from .serializers import (
     LocationSerializer, UserSerializer, UserListSerializer,
     VehicleSerializer, VehiclePhotoSerializer, VehicleAvailabilitySerializer,
-    ReviewSerializer, VehicleListSerializer
+    ReviewSerializer, VehicleListSerializer, RideSerializer
 )
 from .tasks import *
 from django.db import transaction
@@ -477,88 +477,28 @@ class UserAutoLoginView(APIView):
                 'error': 'An unexpected error occurred'
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class MyRideView(APIView):
+    """View to get rides booked by the user"""
+    
+    def post(self, request):
+        user_id = request.data.get('user_id')
+        if not user_id:
+            return Response({
+                'error': 'user_id is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(id=user_id)
+            rides = Ride.objects.filter(user=user).order_by('-created_at')
+            serializer = RideSerializer(rides, many=True, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({
+                'error': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+
 
 # Vehicle Search and Discovery Views
-class VehicleSearchView(APIView):
-    """Advanced vehicle search view"""
-    
-    def get(self, request):
-        queryset = Vehicle.objects.filter(is_available=True, is_verified=True)
-        
-        # Filter parameters
-        vehicle_type = request.GET.get('vehicle_type')
-        fuel_type = request.GET.get('fuel_type')
-        transmission_type = request.GET.get('transmission_type')
-        city = request.GET.get('city')
-        state = request.GET.get('state')
-        min_price = request.GET.get('min_price')
-        max_price = request.GET.get('max_price')
-        min_rating = request.GET.get('min_rating')
-        search_query = request.GET.get('q')
-        
-        # Apply filters
-        if vehicle_type:
-            queryset = queryset.filter(vehicle_type=vehicle_type)
-        if fuel_type:
-            queryset = queryset.filter(fuel_type=fuel_type)
-        if transmission_type:
-            queryset = queryset.filter(transmission_type=transmission_type)
-        if city:
-            queryset = queryset.filter(location__city__icontains=city)
-        if state:
-            queryset = queryset.filter(location__state__icontains=state)
-        if min_price:
-            queryset = queryset.filter(price_per_hour__gte=min_price)
-        if max_price:
-            queryset = queryset.filter(price_per_hour__lte=max_price)
-        if min_rating:
-            queryset = queryset.filter(rating__gte=min_rating)
-        if search_query:
-            queryset = queryset.filter(
-                Q(vehicle_name__icontains=search_query) |
-                Q(vehicle_brand__icontains=search_query) |
-                Q(vehicle_model__icontains=search_query)
-            )
-        
-        # Order by rating and price
-        ordering = request.GET.get('ordering', '-rating')
-        queryset = queryset.order_by(ordering)
-        
-        serializer = VehicleListSerializer(queryset, many=True, context={'request': request})
-        return Response(serializer.data)
-
-class AvailableVehiclesView(APIView):
-    """Get available vehicles for specific dates"""
-    
-    def get(self, request):
-        start_date = request.GET.get('start_date')
-        end_date = request.GET.get('end_date')
-        
-        if not start_date or not end_date:
-            return Response({
-                'error': 'start_date and end_date are required (YYYY-MM-DD format)'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
-            end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
-        except ValueError:
-            return Response({
-                'error': 'Invalid date format. Use YYYY-MM-DD'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Get vehicles that have availability slots for the requested dates
-        available_vehicles = Vehicle.objects.filter(
-            is_available=True,
-            is_verified=True,
-            availability_slots__is_available=True,
-            availability_slots__start_date__lte=start_date,
-            availability_slots__end_date__gte=end_date
-        ).distinct()
-        
-        serializer = VehicleListSerializer(available_vehicles, many=True, context={'request': request})
-        return Response(serializer.data)
-
 class VehiclePhotoUploadView(APIView):
     """Upload multiple photos for a vehicle"""
     parser_classes = (MultiPartParser, FormParser)
@@ -613,8 +553,7 @@ class VehicleUploadView(APIView):
         
         # For non-bicycle vehicles, documents are required
         vehicle_type = data.get('vehicle_type', '')
-        print(vehicle_type)
-        if vehicle_type != 'bicycle':
+        if vehicle_type != 'Bicycle':
             # Check for both FILES and data fields (for JSON file data)
             required_docs = ['vehicle_rc', 'vehicle_insurance', 'vehicle_pollution_certificate']
             missing_docs = []
@@ -715,7 +654,6 @@ class VehicleUploadView(APIView):
                 availability_data = []
                 if 'availability_slots' in data:
                     availability_slots = data.get('availability_slots', [])
-                    
                     # Handle JSON string if sent as string
                     if isinstance(availability_slots, str):
                         try:
@@ -726,8 +664,28 @@ class VehicleUploadView(APIView):
                                 'error': 'Invalid JSON format for availability_slots'
                             }, status=status.HTTP_400_BAD_REQUEST)
                     
-                    # Handle list format
-                    if isinstance(availability_slots, list):
+                    print("Availability slots data:", availability_slots)
+                    
+                    # Handle new format with specificDates and timeSlots
+                    if isinstance(availability_slots, dict) and 'timeSlots' in availability_slots:
+                        print("Processing new format with timeSlots")
+                        time_slots = availability_slots.get('timeSlots', [])
+                        for slot_data in time_slots:
+                            slot_data['vehicle'] = vehicle.id
+                            availability_serializer = VehicleAvailabilitySerializer(data=slot_data)
+                            if availability_serializer.is_valid():
+                                availability_instance = availability_serializer.save()
+                                availability_data.append(availability_serializer.data)
+                            else:
+                                print("Availability slot validation failed:", availability_serializer.errors)
+                                return Response({
+                                    'error': 'Availability slot validation failed',
+                                    'details': availability_serializer.errors
+                                }, status=status.HTTP_400_BAD_REQUEST)
+                    
+                    # Handle original list format
+                    elif isinstance(availability_slots, list):
+                        print("Processing original list format")
                         for slot_data in availability_slots:
                             slot_data['vehicle'] = vehicle.id
                             availability_serializer = VehicleAvailabilitySerializer(data=slot_data)
@@ -740,7 +698,13 @@ class VehicleUploadView(APIView):
                                     'error': 'Availability slot validation failed',
                                     'details': availability_serializer.errors
                                 }, status=status.HTTP_400_BAD_REQUEST)
-                
+                    
+                    else:
+                        print("Invalid availability_slots format:", type(availability_slots))
+                        return Response({
+                            'error': 'Invalid availability_slots format. Expected list or object with timeSlots.'
+                        }, status=status.HTTP_400_BAD_REQUEST)
+    
                 # Trigger vehicle verification task asynchronously
                 verify_vehicle.delay(vehicle.id)
                 
@@ -761,4 +725,88 @@ class VehicleUploadView(APIView):
                 'error': 'An error occurred while uploading vehicle',
                 'details': str(e)
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class AvailableVehicle(APIView):
+    def get(self, request):
+        data = request.query_params.copy()
+        required_data = ['location', 'start_date', 'end_date', 'start_time', 'end_time', 'vehicle_type']
+        for field in required_data:
+            if field not in data or not data[field]:
+                return Response({
+                    'error': f'{field} is required'
+                }, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            location = data['location']
+            start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
+            end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+            # Changed from '%H:%M' to '%H:%M:%S' to handle seconds
+            start_time = datetime.strptime(data['start_time'], '%H:%M:%S').time()
+            end_time = datetime.strptime(data['end_time'], '%H:%M:%S').time()
+
+            # Find vehicles based on location (prioritize city, then state, then other fields)
+            vehicles = Vehicle.objects.filter(
+                is_available=True,
+                is_verified=True,
+                vehicle_type=data['vehicle_type']
+            ).filter(
+                Q(location__city__icontains=location) |
+                Q(location__state__icontains=location) 
+            ).distinct()
+
+            # Filter vehicles that have availability slots covering the requested date range
+            available_vehicles = []
+            for vehicle in vehicles:
+                availability_slots = vehicle.availability_slots.filter(
+                    is_available=True,
+                    start_date__lte=start_date,  # Slot starts before or on requested start date
+                    end_date__gte=end_date       # Slot ends after or on requested end date
+                )
+                
+                for slot in availability_slots:
+                    # Check if the requested time range overlaps with the slot time range
+                    if (start_time >= slot.start_time and start_time <= slot.end_time) and \
+                       (end_time >= slot.start_time and end_time <= slot.end_time):
+                        available_vehicles.append(vehicle)
+                        break
+
+            serializer = VehicleListSerializer(available_vehicles, many=True, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ValueError as e:
+            return Response({
+                'error': f'Invalid date or time format: {str(e)}'
+            }, status=status.HTTP_400_BAD_REQUEST)
+               
+class VehiclesUploadedByUser(APIView):
+    def post(self, request):
+        user_id = request.data.get('user_id')
+        
+        if not user_id:
+            return Response({
+                'error': 'user_id is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = User.objects.get(id=user_id)
+            vehicles = Vehicle.objects.filter(owner=user).order_by('-created_at')
+            serializer = VehicleListSerializer(vehicles, many=True, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({
+                'error': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+
+class VehicleDetailView(APIView):
+    """Get detailed information about a vehicle"""
+    
+    def get(self, request, vehicle_id):
+        try:
+            vehicle = Vehicle.objects.get(id=vehicle_id)
+            serializer = VehicleSerializer(vehicle, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Vehicle.DoesNotExist:
+            return Response({
+                'error': 'Vehicle not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+
+
 

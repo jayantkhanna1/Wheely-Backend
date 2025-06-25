@@ -26,9 +26,9 @@ urlpatterns = [
     
     # Vehicle Search and Discovery Endpoints
     path('upload/vehicle/', VehicleUploadView.as_view(), name='upload-vehicle'),
-    path('vehicles/search/', VehicleSearchView.as_view(), name='vehicle-search'),
-    # path('vehicles/nearby/', NearbyVehiclesView.as_view(), name='nearby-vehicles'),
-    path('vehicles/available/', AvailableVehiclesView.as_view(), name='available-vehicles'),
+    path('search/vehicles/', AvailableVehicle.as_view(), name='search-vehicles'),
+    path('search/vehicle/<int:vehicle_id>/', VehicleDetailView.as_view(), name='vehicle-detail'),
+    path('user/vehicles/', VehiclesUploadedByUser.as_view(), name='user-vehicles'),
     path('upload/vehicle-photos/', VehiclePhotoUploadView.as_view(), name='upload-vehicle-photos'),
 
 ]
