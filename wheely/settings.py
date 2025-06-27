@@ -61,15 +61,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wheely.wsgi.application'
 
-# Database Configuration - PostgreSQL
+# Supabase Configuration
+SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
+SUPABASE_ANON_KEY = os.environ.get('SUPABASE_ANON_KEY', '')
+SUPABASE_SERVICE_ROLE_KEY = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
+
+# Database Configuration - Supabase PostgreSQL
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.environ.get('DB_NAME', 'wheely_db'),
-        'USER': os.environ.get('DB_USER', 'wheely_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'wheely_password_123'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('SUPABASE_DB_NAME', 'postgres'),
+        'USER': os.environ.get('SUPABASE_DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('SUPABASE_DB_PASSWORD', ''),
+        'HOST': os.environ.get('SUPABASE_DB_HOST', ''),
+        'PORT': os.environ.get('SUPABASE_DB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -114,7 +122,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files configuration
+# Media files configuration - Using Supabase Storage
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -200,10 +208,19 @@ TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
 TWILIO_PHONE_NUMBER = os.environ.get('TWILIO_PHONE_NUMBER', '')
 
-# AWS S3 Configuration (Optional)
+# Supabase Storage Configuration
+USE_SUPABASE_STORAGE = os.environ.get('USE_SUPABASE_STORAGE', 'True').lower() == 'true'
+
+if USE_SUPABASE_STORAGE:
+    SUPABASE_STORAGE_BUCKET = os.environ.get('SUPABASE_STORAGE_BUCKET', 'wheely-uploads')
+    
+    # Custom storage backend for Supabase
+    DEFAULT_FILE_STORAGE = 'rental.storage.SupabaseStorage'
+
+# AWS S3 Configuration (Optional fallback)
 USE_S3 = os.environ.get('USE_S3', 'False').lower() == 'true'
 
-if USE_S3:
+if USE_S3 and not USE_SUPABASE_STORAGE:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
@@ -302,4 +319,3 @@ ALLOWED_DOCUMENT_TYPES = os.environ.get('ALLOWED_DOCUMENT_TYPES', 'pdf,doc,docx'
 # Rate Limiting
 RATE_LIMIT_ENABLE = os.environ.get('RATE_LIMIT_ENABLE', 'True').lower() == 'true'
 RATE_LIMIT_PER_MINUTE = int(os.environ.get('RATE_LIMIT_PER_MINUTE', '60'))
-

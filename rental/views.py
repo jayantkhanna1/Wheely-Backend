@@ -23,8 +23,12 @@ from .serializers import (
     ReviewSerializer, VehicleListSerializer, RideSerializer
 )
 from .tasks import *
+from .supabase_client import get_public_supabase_client, get_supabase_client
 from django.db import transaction
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Viewsets
 class LocationViewSet(viewsets.ModelViewSet):
@@ -179,41 +183,69 @@ class ReviewViewSet(viewsets.ModelViewSet):
         return response
 
 
-# User Authentication Views
+# User Authentication Views with Supabase Integration
 class UserRegisterView(APIView):
-    """User registration view"""
+    """User registration view with Supabase integration"""
     
     def post(self, request):
         data = request.data.copy()
-        # Hash password
-        if 'password' in data:
-            data['password'] = make_password(data['password'])
-
-        if 'phone' not in data or not data['phone']:
-            data['phone'] = None  
+        email = data.get('email')
+        password = data.get('password')
         
-        serializer = UserSerializer(data=data)
-        if serializer.is_valid():
-            user = serializer.save()
-            user.password = data['password']  # Ensure password is hashed
-            user.save()
-            # Generate and send OTP
-            try:
-                generate_and_send_otp.delay(user.id, 'user')
-            except:
-                # If celery is not configured, generate OTP without task
-                otp = ''.join(random.choices(string.digits, k=6))
-                user.otp = otp
-                user.save()
-            
+        if not email or not password:
             return Response({
-                'message': 'User registered successfully. OTP sent to email.',
-                'user_id': user.id
-            }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                'error': 'Email and password are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # Register user with Supabase Auth
+            supabase = get_public_supabase_client()
+            
+            auth_response = supabase.auth.sign_up({
+                "email": email,
+                "password": password,
+                "options": {
+                    "data": {
+                        "first_name": data.get('first_name', ''),
+                        "last_name": data.get('last_name', ''),
+                    }
+                }
+            })
+            
+            if auth_response.user:
+                # Create user in Django database
+                if 'phone' not in data or not data['phone']:
+                    data['phone'] = None
+                
+                # Don't hash password again as Supabase handles it
+                data.pop('password', None)
+                
+                serializer = UserSerializer(data=data)
+                if serializer.is_valid():
+                    user = serializer.save()
+                    user.email_verified = bool(auth_response.user.email_confirmed_at)
+                    user.save()
+                    
+                    return Response({
+                        'message': 'User registered successfully. Please check your email for verification.',
+                        'user_id': user.id,
+                        'supabase_user_id': auth_response.user.id
+                    }, status=status.HTTP_201_CREATED)
+                else:
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({
+                    'error': 'Failed to register user with Supabase'
+                }, status=status.HTTP_400_BAD_REQUEST)
+                
+        except Exception as e:
+            logger.error(f"Registration error: {str(e)}")
+            return Response({
+                'error': f'Registration failed: {str(e)}'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginView(APIView):
-    """User login view"""
+    """User login view with Supabase integration"""
     
     def post(self, request):
         email = request.data.get('email')
@@ -227,32 +259,62 @@ class UserLoginView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            # Try to find user by email or phone
-            if email:
-                user = User.objects.get(email=email)
-            else:
-                user = User.objects.get(phone=phone)
-
-            if check_password(password, user.password):
-                if not user.is_active:
+            # Authenticate with Supabase
+            supabase = get_public_supabase_client()
+            
+            # Use email for Supabase auth (phone auth would need different setup)
+            if not email and phone:
+                # Try to find user by phone to get email
+                try:
+                    user = User.objects.get(phone=phone)
+                    email = user.email
+                except User.DoesNotExist:
                     return Response({
-                        'error': 'Account is deactivated'
-                    }, status=status.HTTP_401_UNAUTHORIZED)
-                
-                serializer = UserSerializer(user)
-                return Response({
-                    'message': 'Login successful',
-                    'user': serializer.data,
-                    'token': str(user.private_token)
-                }, status=status.HTTP_200_OK)
+                        'error': 'User not found with provided phone number'
+                    }, status=status.HTTP_404_NOT_FOUND)
+            
+            auth_response = supabase.auth.sign_in_with_password({
+                "email": email,
+                "password": password
+            })
+            
+            if auth_response.user and auth_response.session:
+                # Get Django user
+                try:
+                    user = User.objects.get(email=email)
+                    
+                    if not user.is_active:
+                        return Response({
+                            'error': 'Account is deactivated'
+                        }, status=status.HTTP_401_UNAUTHORIZED)
+                    
+                    # Update email verification status
+                    if not user.email_verified and auth_response.user.email_confirmed_at:
+                        user.email_verified = True
+                        user.save()
+                    
+                    serializer = UserSerializer(user)
+                    return Response({
+                        'message': 'Login successful',
+                        'user': serializer.data,
+                        'token': str(user.private_token),
+                        'supabase_token': auth_response.session.access_token
+                    }, status=status.HTTP_200_OK)
+                    
+                except User.DoesNotExist:
+                    return Response({
+                        'error': 'User not found in local database'
+                    }, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response({
                     'error': 'Invalid credentials'
                 }, status=status.HTTP_401_UNAUTHORIZED)
-        except User.DoesNotExist:
+                
+        except Exception as e:
+            logger.error(f"Login error: {str(e)}")
             return Response({
-                'error': 'User not found with provided credentials'
-            }, status=status.HTTP_404_NOT_FOUND)
+                'error': f'Login failed: {str(e)}'
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
 class UserAddPhoneView(APIView):
     """User add phone number view"""
@@ -338,37 +400,52 @@ class UserDeleteView(APIView):
             }, status=status.HTTP_404_NOT_FOUND)
 
 class VerifyEmailView(APIView):
-    """Email verification view"""
+    """Email verification view - now handled by Supabase"""
     
     def post(self, request):
         email = request.data.get('email')
-        otp = request.data.get('otp')
+        token = request.data.get('token')  # Supabase verification token
         
-        if not all([email, otp]):
+        if not all([email, token]):
             return Response({
-                'error': 'email and otp are required'
+                'error': 'email and token are required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            user = User.objects.get(email=email)
+            supabase = get_public_supabase_client()
             
-            if str(user.otp) == str(otp):
-                user.email_verified = True
-                user.otp = ''  # Clear OTP after verification
-                user.save()
-                return Response({
-                    'message': 'Email verified successfully',
-                    'user' : UserSerializer(user).data
-                }, status=status.HTTP_200_OK)
+            # Verify email with Supabase
+            response = supabase.auth.verify_otp({
+                'email': email,
+                'token': token,
+                'type': 'signup'
+            })
+            
+            if response.user:
+                # Update Django user
+                try:
+                    user = User.objects.get(email=email)
+                    user.email_verified = True
+                    user.save()
+                    
+                    return Response({
+                        'message': 'Email verified successfully',
+                        'user': UserSerializer(user).data
+                    }, status=status.HTTP_200_OK)
+                except User.DoesNotExist:
+                    return Response({
+                        'error': 'User not found in local database'
+                    }, status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response({
-                    'error': 'Invalid OTP'
+                    'error': 'Invalid verification token'
                 }, status=status.HTTP_400_BAD_REQUEST)
                 
-        except User.DoesNotExist:
+        except Exception as e:
+            logger.error(f"Email verification error: {str(e)}")
             return Response({
-                'error': 'User not found'
-            }, status=status.HTTP_404_NOT_FOUND)
+                'error': f'Verification failed: {str(e)}'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class VerifyPhoneView(APIView):
     """Phone verification view"""
@@ -419,7 +496,12 @@ class ResendOTPView(APIView):
             # Generate and send new OTP
             try:
                 if not user.email_verified:
-                    generate_and_send_otp.delay(user.id, 'user')
+                    # Resend email verification through Supabase
+                    supabase = get_public_supabase_client()
+                    supabase.auth.resend({
+                        'type': 'signup',
+                        'email': user.email
+                    })
                 else:
                     otp = ''.join(random.choices(string.digits, k=6))
                     user.otp = otp
@@ -446,6 +528,7 @@ class UserAutoLoginView(APIView):
     def post(self, request):
         user_id = request.data.get('user_id')
         private_token = request.data.get('private_token')
+        supabase_token = request.data.get('supabase_token')
 
         if not all([user_id, private_token]):
             return Response({
@@ -462,6 +545,14 @@ class UserAutoLoginView(APIView):
                 return Response({
                     'error': 'Account is not verified'
                 }, status=status.HTTP_401_UNAUTHORIZED)
+
+            # Optionally verify Supabase token if provided
+            if supabase_token:
+                try:
+                    supabase = get_public_supabase_client()
+                    supabase.auth.get_user(supabase_token)
+                except:
+                    logger.warning(f"Invalid Supabase token for user {user_id}")
 
             serializer = UserSerializer(user)
             return Response({
@@ -807,6 +898,3 @@ class VehicleDetailView(APIView):
             return Response({
                 'error': 'Vehicle not found'
             }, status=status.HTTP_404_NOT_FOUND)
-
-
-
