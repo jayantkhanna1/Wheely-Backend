@@ -223,7 +223,8 @@ class UserRegisterView(APIView):
                 serializer = UserSerializer(data=data)
                 if serializer.is_valid():
                     user = serializer.save()
-                    user.email_verified = bool(auth_response.user.email_confirmed_at)
+                    user.otp = ''.join(random.choices(string.digits, k=6))  # Generate OTP
+                    user.email_verified = False
                     user.save()
                     
                     return Response({
@@ -404,42 +405,33 @@ class VerifyEmailView(APIView):
     
     def post(self, request):
         email = request.data.get('email')
-        token = request.data.get('token')  # Supabase verification token
-        
-        if not all([email, token]):
+        otp = request.data.get('otp')  # Supabase verification token
+
+        if not all([email, otp]):
             return Response({
-                'error': 'email and token are required'
+                'error': 'email and otp are required'
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            supabase = get_public_supabase_client()
-            
-            # Verify email with Supabase
-            response = supabase.auth.verify_otp({
-                'email': email,
-                'token': token,
-                'type': 'signup'
-            })
-            
-            if response.user:
-                # Update Django user
-                try:
-                    user = User.objects.get(email=email)
-                    user.email_verified = True
-                    user.save()
-                    
-                    return Response({
-                        'message': 'Email verified successfully',
-                        'user': UserSerializer(user).data
-                    }, status=status.HTTP_200_OK)
-                except User.DoesNotExist:
-                    return Response({
-                        'error': 'User not found in local database'
-                    }, status=status.HTTP_404_NOT_FOUND)
-            else:
+           
+            if not User.objects.filter(email=email).exists():
                 return Response({
-                    'error': 'Invalid verification token'
-                }, status=status.HTTP_400_BAD_REQUEST)
+                    'error': 'User not found with this email'
+                }, status=status.HTTP_404_NOT_FOUND)
+            
+            user = User.objects.get(email=email)
+            if str(user.otp) == str(otp):
+                user.email_verified = True
+                user.otp = ''  # Clear OTP after verification
+                user.save()
+                return Response({
+                    'message': 'Email verified successfully',
+                    'user': UserSerializer(user).data
+                }, status=status.HTTP_200_OK)
+            
+            return Response({
+                    'error': 'Invalid OTP'
+            }, status=status.HTTP_400_BAD_REQUEST)
                 
         except Exception as e:
             logger.error(f"Email verification error: {str(e)}")
