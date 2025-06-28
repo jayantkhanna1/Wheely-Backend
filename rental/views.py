@@ -580,7 +580,76 @@ class MyRideView(APIView):
                 'error': 'User not found'
             }, status=status.HTTP_404_NOT_FOUND)
 
+class UserBookVehicleView(APIView):
+    """Book a vehicle for a user"""
+    def post(self, request):
+        user_id = request.data.get('user_id')
+        vehicle_id = request.data.get('vehicle_id')
+        start_date = request.data.get('start_date')
+        end_date = request.data.get('end_date')
+        start_time = request.data.get('start_time')
+        end_time = request.data.get('end_time')
+        payment_method = request.data.get('payment_method', 'Cash')
+        amount = request.data.get('amount')
+        status = request.data.get('status', 'Pending')
 
+        if not all([user_id, vehicle_id, start_date, start_time, amount]):
+            return Response({
+                'error': 'user_id, vehicle_id, start_date, start_time, and amount are required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = User.objects.get(id=user_id)
+            vehicle = Vehicle.objects.get(id=vehicle_id)
+            if not vehicle.is_available:
+                return Response({
+                    'error': 'Vehicle is not available for booking'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Check if the vehicle is already booked for the requested time
+            conflicting_rides = Ride.objects.filter(
+                vehicle=vehicle,
+                start_date=start_date,
+                end_date__gte=start_date,
+                start_time__lte=end_time
+            )
+
+            if conflicting_rides.exists():
+                return Response({
+                    'error': 'Vehicle is already booked for the requested time'
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            # Create a new ride
+            ride = Ride.objects.create(
+                user=user,
+                vehicle=vehicle,
+                start_date=start_date,
+                end_date=end_date,
+                start_time=start_time,
+                end_time=end_time,
+                amount=amount,
+                status=status,
+                payment_method=payment_method
+            )
+
+            return Response({
+                'message': 'Vehicle booked successfully',
+                'ride_id': ride.id
+            }, status=status.HTTP_201_CREATED)
+
+        except User.DoesNotExist:
+            return Response({
+                'error': 'User not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+        except Vehicle.DoesNotExist:
+            return Response({
+                'error': 'Vehicle not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({
+                'error': str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+  
 # Vehicle Search and Discovery Views
 class VehiclePhotoUploadView(APIView):
     """Upload multiple photos for a vehicle"""
@@ -890,3 +959,4 @@ class VehicleDetailView(APIView):
             return Response({
                 'error': 'Vehicle not found'
             }, status=status.HTTP_404_NOT_FOUND)
+        

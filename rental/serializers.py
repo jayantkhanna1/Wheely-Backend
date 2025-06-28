@@ -95,10 +95,11 @@ class RideSerializer(serializers.ModelSerializer):
         model = Ride
         fields = [
             'id', 'vehicle', 'vehicle_id', 'user', 'user_id',
-            'start_time', 'end_time', 'total_cost', 'status', 'created_at', 'updated_at'
+            'start_date', 'end_date', 'start_time', 'end_time',
+            'amount', 'status', 'payment_method', 'created_at', 'updated_at'
         ]
         read_only_fields = ['created_at', 'updated_at']
-    
+      
 
 class VehicleListSerializer(serializers.ModelSerializer):
     location = LocationSerializer(read_only=True)

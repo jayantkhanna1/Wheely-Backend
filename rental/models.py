@@ -176,9 +176,11 @@ class Ride(models.Model):
     """Model for tracking rides"""
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='rides')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rides')
-    start_time = models.DateTimeField()
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
-    total_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status  = models.CharField(max_length=20, choices=[
@@ -187,9 +189,17 @@ class Ride(models.Model):
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled')
     ], default='booked')
+    payment_method = models.CharField(max_length=20, choices=[
+        ('cash', 'Cash'),
+        ('card', 'Card'),
+        ('upi', 'UPI'),
+        ('wallet', 'Wallet'),
+        ('net_banking', 'Net Banking')
+    ], default='cash')
 
     def __str__(self):
         return f"Ride by {self.user.first_name} in {self.vehicle.vehicle_name} from {self.start_location.city} to {self.end_location.city}"
     
     class Meta:
         ordering = ['-created_at']       
+

@@ -88,13 +88,13 @@ class VehicleAvailabilityAdmin(admin.ModelAdmin):
 
 @admin.register(Ride)
 class RideAdmin(admin.ModelAdmin):
-    list_display = ('user', 'vehicle', 'start_time', 'end_time', 'total_cost', 'status', 'created_at')
+    list_display = ('user', 'vehicle', 'start_time', 'end_time', 'amount', 'status', 'created_at')
     list_filter = ('status', 'created_at')
     search_fields = ('user__first_name', 'user__last_name', 'vehicle__vehicle_name')
     readonly_fields = ('created_at', 'updated_at')
     fieldsets = (
         ('Ride Information', {
-            'fields': ('user', 'vehicle', 'start_time', 'end_time', 'total_cost')
+            'fields': ('user', 'vehicle', 'start_time', 'end_time', 'amount')
         }),
         ('Status & Timestamps', {
             'fields': ('status', 'created_at', 'updated_at')

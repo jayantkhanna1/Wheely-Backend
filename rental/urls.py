@@ -23,6 +23,7 @@ urlpatterns = [
     path('user/verifyEmail/', VerifyEmailView.as_view(), name='verify-email'),
     path('user/verifyPhone/', VerifyPhoneView.as_view(), name='verify-phone'),
     path('user/resendOtp/', ResendOTPView.as_view(), name='resend-otp'),
+    path('user/book/', UserBookVehicleView.as_view(), name='user-book-vehicle'),
     
     # Vehicle Search and Discovery Endpoints
     path('upload/vehicle/', VehicleUploadView.as_view(), name='upload-vehicle'),
